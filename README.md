@@ -1,3 +1,3 @@
-# Staystream
+# Events
 
-Helps you with building the daily habit of writing ideas down.
+Helps you create and share events. Built in with React.js and Sails.js.
