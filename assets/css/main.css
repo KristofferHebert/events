@@ -1,0 +1,233 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    background: #e2e4e6;
+    color: #4d4d4d;
+    font-size: 100%;
+}
+
+a, .fa {
+    color: #2b7bb9;
+}
+
+input, select, .btn, .input-content {
+    padding: .5em;
+    margin: 0 0 1.2em;
+    border: 1px solid #ccc;
+    clear: both;
+    width: 100%;
+    max-width: 60%;
+    min-width: 288px;
+    display: block;
+    font-size: 1.1em;
+    border-radius: .3em;
+}
+
+input[type="checkbox"] {
+    width: 1em;
+}
+
+input::-webkit-input-placeholder {
+    color: #999;
+}
+
+input:-moz-placeholder {
+    color: #999;
+}
+
+input::-moz-placeholder {
+    color: #999;
+}
+
+input:-ms-input-placeholder {
+    color: #999;
+}
+
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  display: block;
+  color: #999;
+}
+
+select {
+    height: 2.3em;
+}
+
+.container {
+    padding: 1em;
+}
+
+.section {
+    padding-top: 4em;
+    padding-bottom: 4em
+}
+
+.wrapper {
+    max-width: 960px;
+    min-width: 320px;
+    width: 100%;
+    margin: auto;
+}
+
+.sidebar {
+    width: 280px;
+    background: #333;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.input-submit, .btn{
+    background: #2b7bb9;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: .8em;
+    padding: .6em 1.3em;
+    position: relative;
+    text-decoration: none;
+    padding: .8em;
+    border-radius: .3em;
+    color: #fff;
+    max-width: 300px;
+
+}
+
+/* Grid */
+
+.row {
+    width: 100%;
+}
+
+.half {
+    width: 50%;
+    float: left;
+    padding-right: .5em;
+}
+
+.full {
+    width: 100%;
+    max-width: 100%;
+}
+
+.last {
+    padding-right: 0;
+}
+
+.addSpacingForMenu {
+    padding-right: 280px;
+}
+
+.input-content {
+    height: 12em;
+    background: #fff;
+}
+
+.btn {
+    text-align: center;
+    cursor: pointer;
+}
+
+.list-inline, .list-nostyle {
+    padding: 0;
+    margin:0;
+    list-style: none;
+}
+
+.list-inline li, .inline-block {
+    display: inline-block;
+}
+
+.menu-item, .menu-item-vertical {
+    padding: 1em;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu-item-vertical {
+    display: block;
+    border-bottom: 1px solid #999;
+}
+
+.menu-item-vertical:hover, .menu-item-vertical:active {
+    background: #444;
+}
+
+.fa.menu-item-vertical::before, .fa.menu-item::before {
+    margin-right: .4em;
+}
+
+/* Idea styling*/
+
+.idea-item {
+    background: #fff;
+    padding: .4em 1em;
+    border: 1px solid #ddd;
+    margin-bottom: .4em;
+}
+
+/*
+    Helper classes
+*/
+
+body .bg-dark {
+    background: #222;
+}
+
+body .tc {
+    text-align: center;
+}
+
+body .fr {
+    float: right;
+}
+
+body .fl {
+    float: left;
+}
+
+body .hidden {
+    display: none;
+}
+
+.pr {
+    margin-right: -.4em;
+}
+
+.mr {
+    margin-right: .4em;
+}
+
+.ml {
+    margin-left: .4em;
+}
+
+.mb {
+    margin-bottom: .4em;
+}
+
+.db {
+    display: block;
+}
+
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.row:after, .cf:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+}
