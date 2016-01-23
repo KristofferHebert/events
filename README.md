@@ -1,3 +1,3 @@
 # Events
 
-Helps you create and share events. Built in with React.js and Sails.js.
+Helps you create and share events. Built with React.js and Sails.js.
