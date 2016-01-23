@@ -6,7 +6,6 @@
  */
 
 var enableUnique = (process.env === "production") ? true : false
-var SALT_WORK_FACTOR = 10
 
 function hashPassword(user, next){
     if(user.password){
@@ -42,10 +41,6 @@ module.exports = {
 			type: 'integer',
 			defaultsTo: 1
 		},
-        streams: {
-            collection: 'stream',
-            via: 'owner'
-        },
         active: {
             type: 'boolean',
             defaultsTo: true
