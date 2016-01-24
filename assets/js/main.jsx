@@ -7,6 +7,7 @@ import Wrapper from './components/wrapper.jsx'
 import HomePage from './pages/homepage.jsx'
 import SignUpPage from './pages/signuppage.jsx'
 import LoginPage from './pages/loginpage.jsx'
+import UserPage from './pages/userpage.jsx'
 
 
 var Routes = (
@@ -14,6 +15,10 @@ var Routes = (
       <IndexRoute component={HomePage} />
         <Route path="signup" component={SignUpPage} />
         <Route path="login" component={LoginPage} />
+            <Route path="u" component={UserPage}>
+                
+            </Route>
+
     </Route>
 )
 
