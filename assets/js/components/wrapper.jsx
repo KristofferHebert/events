@@ -15,7 +15,8 @@ var Wrapper = React.createClass({
     },
     handleLogout(event){
         this.toggleMenu(event)
-        this.history.pushState(null, '/logout')
+        Auth.logoutUser()
+        this.history.pushState(null, '/')
     },
     isEditPage(){
         var hash = window.location.hash.split('/')
@@ -35,11 +36,11 @@ var Wrapper = React.createClass({
                     <header className="main bg-dark tc cf">
                         <nav className="wrapper">
                             <ul className="list-inline">
-                                <li className={ (isLoggedIn && !showBackButton) ? 'fl' : 'hidden'}><Link to={Home} className="menu-item">Staystream</Link></li>
+                                <li className={ (isLoggedIn && !showBackButton) ? 'fl' : 'hidden'}><Link to={Home} className="menu-item">Events</Link></li>
                                 <li className={ (isLoggedIn && showBackButton) ? 'fl' : 'hidden'}><a href="#" className="fa fa-chevron-left menu-item" onClick={this.goBack}>Back</a></li>
                                 <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><a href="#" className="fa fa-bars menu-item" onClick={this.toggleMenu}>Menu</a></li>
-                                <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><Link className="fa fa-plus-square menu-item" to="/u/stream">Streams</Link></li>
-                                <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><Link to="/u/" className="fa fa-edit menu-item">Add New Idea</Link></li>
+                                <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><Link className="fa fa-plus-square menu-item" to="/u/events">my Events</Link></li>
+                                <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><Link to="/u/" className="fa fa-edit menu-item">Add New Event</Link></li>
                             </ul>
                         </nav>
                     </header>
@@ -48,7 +49,7 @@ var Wrapper = React.createClass({
                     </main>
                     <footer>
                         <section className="wrapper tc">
-                            <p>2015 Staystream.com</p>
+                            <p>2015 Events</p>
                         </section>
                     </footer>
                 </div>

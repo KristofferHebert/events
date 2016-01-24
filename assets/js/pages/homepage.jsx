@@ -2,12 +2,9 @@
 
 // Fetch dependencies
 import { Link, History } from 'react-router'
-import Signup from '../components/signup.jsx'
-import Login from '../components/login.jsx'
 import Auth from '../utils/auth.jsx'
 
-
-var HomePage = React.createClass({
+const HomePage = React.createClass({
     mixins: [History],
     componentDidMount(){
         if(Auth.isLoggedIn()){
@@ -18,20 +15,17 @@ var HomePage = React.createClass({
         return (
             <div>
                 <section className="section tc">
-
-                    <h2>Staystream is a free idea journal. It helps you build the habit of writing ideas down daily.</h2>
-                    <h3>Sign Up – It’s Free.</h3>
-                    <Signup className="tc"/>
-
+                    <h2>Events helps you create and share events with your friends.</h2>
+                    <p><Link to={'/signup'} className="btn btn-primary">Sign Up – It’s Free.</Link></p>
                 </section>
-                <div  className="tc">
-                    <h2>Login</h2>
-                    <Link to={'/login'} className="centered">Click here to login</Link>
-                </div>
+                <section  className="tc">
+                    <h2>Already have a account?</h2>
+                    <p><Link to={'/login'}>Login...</Link></p>
+                </section>
             </div>
         )
     }
 })
 
 
-module.exports = HomePage
+export default HomePage
