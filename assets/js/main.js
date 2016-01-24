@@ -314,9 +314,16 @@ var _handleChange = require('../mixins/handleChange.jsx');
 
 var _handleChange2 = _interopRequireDefault(_handleChange);
 
+var _validate = require('../mixins/validate.jsx');
+
+var _validate2 = _interopRequireDefault(_validate);
+
+var _reactRouter = require('react-router');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var SignupForm = React.createClass({
+    mixins: [_reactRouter.History],
     getInitialState: function getInitialState() {
         return {
             email: {
@@ -346,13 +353,19 @@ var SignupForm = React.createClass({
                 type: 'textarea',
                 value: '',
                 placeholder: 'About me...'
+            },
+            message: {
+                value: '',
+                status: ''
             }
-
         };
     },
 
     handleChange: _handleChange2.default,
+    validate: _validate2.default,
     handleSubmit: function handleSubmit(event) {
+        var _this = this;
+
         event.preventDefault();
         var updateState = this.state.email;
 
@@ -360,22 +373,56 @@ var SignupForm = React.createClass({
             updateState.message = 'Please provide valid email';
             this.setState(updateState);
         } else {
-            updateState.message = 'Success';
-            this.setState(updateState);
-        }
-    },
-    validate: function validate(obj, regex, type) {
-        if (!obj.value.match(regex)) {
-            obj.message = 'Invalid ' + type;
-            obj.status = 'invalid';
-            obj.isValid = false;
+            (function () {
+                var self = _this;
+                var newUser = {
+                    email: _this.state.email.value,
+                    fullname: _this.state.fullname.value,
+                    bio: _this.state.bio.value,
+                    password: _this.state.password.value
+                };
 
-            return obj;
-        } else {
-            obj.message = '';
-            obj.status = 'valid';
-            obj.isValid = true;
-            return obj;
+                var settings = {
+                    method: 'POST',
+                    body: JSON.stringify(newUser)
+                };
+
+                (0, _makeRequest2.default)('/api/v1/user', settings).then(function (response) {
+                    console.log(response);
+                    if (response.code === "CREATED") {
+                        self.setState({
+                            message: {
+                                value: 'Successfully created account.',
+                                status: 'valid'
+                            }
+                        });
+
+                        var User = {
+                            email: newUser.email,
+                            password: newUser.password
+                        };
+
+                        _auth2.default.loginUser(User, function (err, response) {
+                            self.history.pushState(null, '/u');
+                        });
+                    } else {
+                        self.setState({
+                            message: {
+                                value: 'Something went wrong.',
+                                status: 'invalid'
+                            }
+                        });
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                    self.setState({
+                        message: {
+                            value: 'Email is already registered.',
+                            status: 'invalid'
+                        }
+                    });
+                });
+            })();
         }
     },
     render: function render() {
@@ -427,14 +474,15 @@ var SignupForm = React.createClass({
                     { show: this.state.fullname.value !== '' },
                     React.createElement(_input2.default, { type: 'submit', value: 'Sign up', className: 'btn btn-primary' })
                 )
-            )
+            ),
+            React.createElement(_message2.default, { message: this.state.message.value, className: this.state.message.status })
         );
     }
 });
 
 exports.default = SignupForm;
 
-},{"../mixins/handleChange.jsx":11,"../utils/auth.jsx":17,"../utils/makeRequest.jsx":18,"./inputFields/form.jsx":1,"./inputFields/input.jsx":2,"./inputFields/label.jsx":3,"./inputFields/message.jsx":4,"./inputFields/textarea.jsx":5,"./section.jsx":7}],9:[function(require,module,exports){
+},{"../mixins/handleChange.jsx":11,"../mixins/validate.jsx":12,"../utils/auth.jsx":17,"../utils/makeRequest.jsx":18,"./inputFields/form.jsx":1,"./inputFields/input.jsx":2,"./inputFields/label.jsx":3,"./inputFields/message.jsx":4,"./inputFields/textarea.jsx":5,"./section.jsx":7,"react-router":68}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -487,7 +535,7 @@ var Wrapper = React.createClass({
                 { className: this.state.showMenu && isLoggedIn ? 'addSpacingForMenu' : '' },
                 React.createElement(
                     'header',
-                    { className: 'main bg-dark tc cf' },
+                    { className: isLoggedIn ? 'main bg-dark tc cf' : 'hidden' },
                     React.createElement(
                         'nav',
                         { className: 'wrapper' },
@@ -498,8 +546,8 @@ var Wrapper = React.createClass({
                                 'li',
                                 { className: isLoggedIn && !showBackButton ? 'fl' : 'hidden' },
                                 React.createElement(
-                                    _reactRouter.Link,
-                                    { to: Home, className: 'menu-item' },
+                                    'a',
+                                    { href: '#', className: 'menu-item' },
                                     'Events'
                                 )
                             ),
@@ -526,8 +574,8 @@ var Wrapper = React.createClass({
                                 { className: isLoggedIn ? 'fr' : 'hidden' },
                                 React.createElement(
                                     _reactRouter.Link,
-                                    { className: 'fa fa-plus-square menu-item', to: '/u/events' },
-                                    'my Events'
+                                    { to: '/u/addevents', className: 'fa fa-edit menu-item' },
+                                    'Add New Event'
                                 )
                             ),
                             React.createElement(
@@ -535,8 +583,8 @@ var Wrapper = React.createClass({
                                 { className: isLoggedIn ? 'fr' : 'hidden' },
                                 React.createElement(
                                     _reactRouter.Link,
-                                    { to: '/u/', className: 'fa fa-edit menu-item' },
-                                    'Add New Event'
+                                    { className: 'fa fa-plus-square menu-item', to: '/u/events' },
+                                    'My Events'
                                 )
                             )
                         )
@@ -866,7 +914,6 @@ Auth.loginUser = function (userObject, cb) {
     fetch(endpoint, settings).then(function (response) {
 
         if (response.ok) {
-            console.log('login successful', response.statusText);
 
             return response.json().then(function (data) {
                 Auth.setUser(data);
@@ -884,7 +931,6 @@ Auth.loginUser = function (userObject, cb) {
 Auth.logoutUser = function () {
     if (Auth.getUser()) {
         delete localStorage.user;
-        console.log('User logged out');
     }
 };
 
@@ -945,15 +991,13 @@ var token = _auth2.default.getToken();
 // If token exists update options header token with token string
 if (token) defaultOptions.headers.token = 'Authorization: Bearer: ' + token;
 
-function makeRequest(endpoint) {
-	var method = arguments.length <= 1 || arguments[1] === undefined ? 'get' : arguments[1];
-	var userOptions = arguments[2];
-
+function makeRequest(endpoint, userOptions) {
 	var options = Object.assign(defaultOptions, userOptions);
-	options.method = method;
 
-	fetch(endpoint, options).then(_checkStatus).then(_parseJSON).catch(function (error) {
-		return error;
+	return fetch(endpoint, options).then(function (response) {
+		return response.json().then(function (json) {
+			return response.ok ? json : Promise.reject(json);
+		});
 	});
 }
 

@@ -37,7 +37,6 @@ Auth.loginUser = function(userObject, cb){
     fetch(endpoint, settings).then(function(response){
 
             if(response.ok){
-                    console.log('login successful', response.statusText)
 
                     return response.json().then(function(data) {
                         Auth.setUser(data)
@@ -57,7 +56,6 @@ Auth.loginUser = function(userObject, cb){
 Auth.logoutUser = function(){
     if(Auth.getUser()){
         delete localStorage.user
-        console.log('User logged out')
     }
 }
 

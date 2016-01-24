@@ -30,16 +30,15 @@ let token = Auth.getToken()
 // If token exists update options header token with token string
 if (token) defaultOptions.headers.token = 'Authorization: Bearer: ' + token
 
-function makeRequest(endpoint, method = 'get', userOptions) {
+function makeRequest(endpoint, userOptions) {
     let options = Object.assign(defaultOptions, userOptions)
-    options.method = method
 
-	fetch(endpoint, options)
-		.then(_checkStatus)
-		.then(_parseJSON)
-		.catch(function(error) {
-			return error
-		})
+	return fetch(endpoint, options)
+			.then(response => {
+			    return response.json().then(json => {
+			    	return response.ok ? json : Promise.reject(json)
+			    })
+			})
 }
 
 export default makeRequest

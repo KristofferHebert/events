@@ -33,14 +33,15 @@ var Wrapper = React.createClass({
         return (
             <div>
                 <div className={this.state.showMenu && isLoggedIn ? 'addSpacingForMenu' : ''}>
-                    <header className="main bg-dark tc cf">
+                    <header className={ (isLoggedIn) ? 'main bg-dark tc cf' : 'hidden'}>
                         <nav className="wrapper">
                             <ul className="list-inline">
-                                <li className={ (isLoggedIn && !showBackButton) ? 'fl' : 'hidden'}><Link to={Home} className="menu-item">Events</Link></li>
+                                <li className={ (isLoggedIn && !showBackButton) ? 'fl' : 'hidden'}><a href="#" className="menu-item">Events</a></li>
                                 <li className={ (isLoggedIn && showBackButton) ? 'fl' : 'hidden'}><a href="#" className="fa fa-chevron-left menu-item" onClick={this.goBack}>Back</a></li>
                                 <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><a href="#" className="fa fa-bars menu-item" onClick={this.toggleMenu}>Menu</a></li>
-                                <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><Link className="fa fa-plus-square menu-item" to="/u/events">my Events</Link></li>
-                                <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><Link to="/u/" className="fa fa-edit menu-item">Add New Event</Link></li>
+                                <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><Link to="/u/addevents" className="fa fa-edit menu-item">Add New Event</Link></li>
+                                <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><Link className="fa fa-plus-square menu-item" to="/u/events">My Events</Link></li>
+
                             </ul>
                         </nav>
                     </header>

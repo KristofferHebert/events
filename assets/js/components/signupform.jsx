@@ -8,9 +8,12 @@ import Form from './inputFields/form.jsx'
 import Auth from '../utils/auth.jsx'
 import makeRequest from '../utils/makeRequest.jsx'
 import handleChange from '../mixins/handleChange.jsx'
+import validate from '../mixins/validate.jsx'
+import { History } from 'react-router'
 
 
 const SignupForm = React.createClass({
+    mixins: [History],
     getInitialState(){
         return {
               email: {
@@ -40,11 +43,15 @@ const SignupForm = React.createClass({
                 type: 'textarea',
                 value: '',
                 placeholder : 'About me...'
+              },
+              message: {
+                  value: '',
+                  status: ''
               }
-
             }
     },
     handleChange,
+    validate,
     handleSubmit(event){
         event.preventDefault()
         var updateState = this.state.email
@@ -53,24 +60,60 @@ const SignupForm = React.createClass({
           updateState.message = 'Please provide valid email'
           this.setState(updateState)
         } else {
-          updateState.message = 'Success'
-          this.setState(updateState)
+            let self = this
+            let newUser = {
+                email: this.state.email.value,
+                fullname: this.state.fullname.value,
+                bio:  this.state.bio.value,
+                password: this.state.password.value
+            }
+
+            let settings = {
+                method: 'POST',
+                body: JSON.stringify(newUser),
+            }
+
+            makeRequest('/api/v1/user', settings)
+                .then(function(response){
+                    console.log(response)
+                    if(response.code === "CREATED") {
+                        self.setState({
+                            message : {
+                                value: 'Successfully created account.',
+                                status: 'valid'
+                            }
+                        })
+
+                        let User = {
+                            email: newUser.email,
+                            password: newUser.password
+                        }
+
+                        Auth.loginUser(User, function(err, response){
+                            self.history.pushState(null, '/u')
+                        })
+
+                    } else {
+                        self.setState({
+                            message : {
+                                value: 'Something went wrong.',
+                                status: 'invalid'
+                            }
+                        })
+                    }
+
+                })
+                .catch(function(error){
+                    console.log(error)
+                    self.setState({
+                        message : {
+                            value: 'Email is already registered.',
+                            status: 'invalid'
+                        }
+                    })
+                })
+
         }
-    },
-    validate(obj, regex, type){
-          if(!obj.value.match(regex)) {
-              obj.message = 'Invalid ' + type
-              obj.status = 'invalid'
-              obj.isValid = false
-
-              return obj
-
-          } else {
-              obj.message = ''
-              obj.status = 'valid'
-              obj.isValid = true
-              return obj
-          }
     },
     render(){
         return (
@@ -96,6 +139,7 @@ const SignupForm = React.createClass({
             <Section show={this.state.fullname.value !== ''}>
                 <Input type="submit" value="Sign up" className="btn btn-primary"/></Section>
             </Section>
+            <Message message={this.state.message.value} className={this.state.message.status}/>
             </Form>
         )
     }

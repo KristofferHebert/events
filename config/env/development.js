@@ -18,7 +18,7 @@ module.exports = {
    ***************************************************************************/
 
    models: {
-       connection: 'SS_STAGING_DB'
+       connection: 'EVENTS_STAGING_DB'
     },
     port: 1666
 };

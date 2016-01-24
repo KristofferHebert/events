@@ -27,11 +27,11 @@ module.exports = {
 		email: {
 			type: 'string',
 			required: true,
-			unique: enableUnique,
+			unique: true,
 			minLength: 5,
 			maxLength: 35
 		},
-        name: {
+        fullname: {
             type: 'string',
             maxLength: 100
         },

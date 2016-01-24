@@ -56,22 +56,22 @@ module.exports.connections = {
   * Run: npm install sails-mongo                                             *
   *                                                                          *
   ***************************************************************************/
-  SS_STAGING_DB: {
+ EVENTS_STAGING_DB: {
     adapter: 'sails-mongo',
     host: 'localhost',
     port: 27017,
     // user: 'username',
     // password: 'password',
-    database: 'SS_STAGING_DB'
+    database: 'EVENTS_STAGING_DB'
   },
 
-  SS_PRODUCTION_DB: {
+ EVENTS_PRODUCTION_DB: {
     adapter: 'sails-mongo',
     host: 'localhost',
     port: 27017,
     // user: 'username',
     // password: 'password',
-    database: 'SS_PRODUCTION_DB'
+    database: 'EVENTS_PRODUCTION_DB'
   },
 
   /***************************************************************************
