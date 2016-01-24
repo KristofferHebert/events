@@ -5,6 +5,8 @@ import Message from './inputFields/message.jsx'
 import Form from './inputFields/form.jsx'
 
 import Auth from '../utils/auth.jsx'
+import makeRequest from '../utils/makeRequest.jsx'
+
 import handleChange from '../mixins/handleChange.jsx'
 
 
@@ -20,18 +22,21 @@ const LoginForm = React.createClass({
                     name: 'password',
                     type: 'password',
                     value: ''
-                }
+                },
+                message: ""
             }
     },
     handleChange,
     handleSubmit(e){
             e.preventDefault()
-            console.log('submit happened')
+            if(this.state.email.value === '' && this.state.password.value === '') {
+                this.setState({message: 'Please fill out all fields'})
+            }
     },
     render(){
         return (
             <Form formNoValidate={true} onSubmit={this.handleSubmit}>
-                <h3 className="center">Sign up for Events</h3>
+                <h3 className="center">Login</h3>
                 <Label for="email" text="Email*">
                     <Input {...this.state.email} onChange={this.handleChange}/>
                     <Message message={this.state.email.message}/>
@@ -40,6 +45,7 @@ const LoginForm = React.createClass({
                     <Input {...this.state.password} onChange={this.handleChange}/>
                     <Message message={this.state.password.message}/>
                 </Label>
+                <Message message={this.state.message} />
                 <Input type="submit" value="Login" className="btn btn-primary"/>
             </Form>
         )

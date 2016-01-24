@@ -40,7 +40,7 @@
     "scripts": {
         "prod": "pm2 start app.js --name staystream.com",
         "dev": "pm2-dev app.js",
-        "compile": "watchify -t babelify assets/js/main.jsx -o assets/js/main.js",
+        "compile": "watchify -t babelify assets/js/main.jsx -o assets/js/main.js --poll",
         "debug": "node debug app.js",
         "start": "node app.js"
     },

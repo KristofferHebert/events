@@ -6,12 +6,14 @@ var History = createHashHistory()
 import Wrapper from './components/wrapper.jsx'
 import HomePage from './pages/homepage.jsx'
 import SignUpPage from './pages/signuppage.jsx'
+import LoginPage from './pages/loginpage.jsx'
 
 
 var Routes = (
     <Route path="/" component={Wrapper}>
       <IndexRoute component={HomePage} />
-          <Route path="signup" component={SignUpPage}/>
+        <Route path="signup" component={SignUpPage} />
+        <Route path="login" component={LoginPage} />
     </Route>
 )
 

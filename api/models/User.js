@@ -31,24 +31,24 @@ module.exports = {
 			minLength: 5,
 			maxLength: 35
 		},
+        name: {
+            type: 'string',
+            maxLength: 100
+        },
+        bio: {
+            type: 'string',
+            maxLength: 400
+        },
 		password: {
 			type: 'string',
 			required: true,
-			minLength: 5,
+			minLength: 8,
 			maxLength: 25
 		},
 		authorization: {
 			type: 'integer',
 			defaultsTo: 1
 		},
-        active: {
-            type: 'boolean',
-            defaultsTo: true
-        },
-        sendNotifications: {
-            type: 'boolean',
-            defaultsTo: true
-        },
         toJSON: removePasswordFromJSON
 	},
     beforeUpdate: hashPassword,

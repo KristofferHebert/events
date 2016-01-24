@@ -1,9 +1,4 @@
 const Section = React.createClass({
-    getDefaultProps(){
-        return {
-            show: false
-        }
-    },
     render(){
         return (
             <section>

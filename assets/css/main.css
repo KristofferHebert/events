@@ -15,7 +15,7 @@ a, .fa {
     color: #2b7bb9;
 }
 
-input, select, .btn, .input-content {
+input, select, .btn, .input-content, textarea {
     padding: .5em;
     margin: 0 0 1.2em;
     border: 1px solid #ccc;
@@ -68,7 +68,7 @@ select {
 }
 
 .wrapper {
-    max-width: 960px;
+    max-width: 764px;
     min-width: 320px;
     width: 100%;
     margin: auto;

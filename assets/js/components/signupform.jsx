@@ -6,6 +6,7 @@ import Section from './section.jsx'
 import Form from './inputFields/form.jsx'
 
 import Auth from '../utils/auth.jsx'
+import makeRequest from '../utils/makeRequest.jsx'
 import handleChange from '../mixins/handleChange.jsx'
 
 
@@ -17,12 +18,14 @@ const SignupForm = React.createClass({
                 type: 'email',
                 value: '',
                 placeholder : 'Email@email.com',
+                isValid: false,
                 validate: /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
               },
               password: {
                 name: 'password',
                 type: 'password',
                 value: '',
+                isValid: false,
                 placeholder : 'Password',
                 validate: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/i
               },
@@ -37,48 +40,6 @@ const SignupForm = React.createClass({
                 type: 'textarea',
                 value: '',
                 placeholder : 'About me...'
-              },
-              eventName: {
-                name: 'eventName',
-                type: 'text',
-                value: '',
-                placeholder : 'Beth\'s 30th Birthday'
-              },
-              location: {
-                name: 'location',
-                type: 'text',
-                value: '',
-                placeholder : 'San Francisco, CA'
-              },
-              locate: {
-                name: 'locate',
-                type: 'button',
-                value: 'Locate',
-                placeholder : 'San Francisco, CA'
-              },
-              eventType: {
-                name: 'eventType',
-                type: 'text',
-                value: '',
-                placeholder : 'Birthday Party',
-                list: 'eventType-list',
-                options: ['Birthday Party', 'Conference Talk', 'Wedding', 'Other']
-              },
-              eventHost: {
-                name: 'eventHost',
-                type: 'text',
-                value: '',
-                placeholder : 'Your Name'
-              },
-              eventStart: {
-                name: 'eventStart',
-                type: 'datetime-local',
-                value: ''
-              },
-              eventEnd: {
-                name: 'eventStart',
-                type: 'datetime-local',
-                value: ''
               }
 
             }
@@ -125,11 +86,12 @@ const SignupForm = React.createClass({
             </Label>
             <p className="center">Password must contain 8 characters at least 1 Alphabet, 1 Number and 1 Special Character</p>
             <Section show={this.state.email.isValid && this.state.password.isValid}>
-                <Label for="name" text="Name*">
+                <Label for="fullname" text="Name*">
                 <Input {...this.state.fullname} onChange={this.handleChange}/>
                 </Label>
                 <Label for="Bio" text="Bio (optional)">
                 <Textarea {...this.state.bio} rows="4" cols="50" maxLength="400" onChange={this.handleChange}/>
+                <p className="fr small">400 characters max</p>
                 </Label>
             <Section show={this.state.fullname.value !== ''}>
                 <Input type="submit" value="Sign up" className="btn btn-primary"/></Section>

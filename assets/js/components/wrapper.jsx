@@ -49,7 +49,7 @@ var Wrapper = React.createClass({
                     </main>
                     <footer>
                         <section className="wrapper tc">
-                            <p>2015 Events</p>
+                            <p>2016 Events</p>
                         </section>
                     </footer>
                 </div>

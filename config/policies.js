@@ -55,7 +55,9 @@ module.exports.policies = {
     AuthController: {
         '*': true
     },
-    // UserController: ['isAdmin'],
+    UserController: {
+        'create': true
+    },
      IdeaController: {
          'create': ['setOwner']
      }
