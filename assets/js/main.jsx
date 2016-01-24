@@ -8,16 +8,15 @@ import HomePage from './pages/homepage.jsx'
 import SignUpPage from './pages/signuppage.jsx'
 import LoginPage from './pages/loginpage.jsx'
 import UserPage from './pages/userpage.jsx'
-
+import AddEventsPage from './pages/addeventspage.jsx'
 
 var Routes = (
     <Route path="/" component={Wrapper}>
       <IndexRoute component={HomePage} />
         <Route path="signup" component={SignUpPage} />
         <Route path="login" component={LoginPage} />
-            <Route path="u" component={UserPage}>
-                
-            </Route>
+        <Route path="u" component={UserPage} />
+        <Route path="u/addevents" component={AddEventsPage} />
 
     </Route>
 )

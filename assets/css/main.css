@@ -21,11 +21,9 @@ input, select, .btn, .input-content, textarea {
     border: 1px solid #ccc;
     clear: both;
     width: 100%;
-    max-width: 60%;
     min-width: 288px;
     display: block;
     font-size: 1.1em;
-    border-radius: .3em;
 }
 
 input[type="checkbox"] {
@@ -46,6 +44,67 @@ input::-moz-placeholder {
 
 input:-ms-input-placeholder {
     color: #999;
+}
+
+input, textarea {
+    margin-bottom: 1.4em;
+    width: 100%;
+    display:block;
+    padding: .6em;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    box-shadow: 0 0 3px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+}
+
+.invalid, .invalid:focus {
+    border-color: red;
+    box-shadow: 0 0 3px red;
+    border: 1px solid red;
+}
+
+.valid, .valid:focus {
+    border-color: red;
+    box-shadow: 0 0 3px #4CAF50;
+    border: 1px solid #4CAF50;
+}
+
+label span{
+    display:block;
+    margin-bottom: .4em;
+    font-size: .9em
+}
+
+.checkbox span {
+    float: left;
+}
+
+.checkbox input[type="checkbox"] {
+    display: inline-block;
+    width: inherit;
+}
+
+/* Button */
+
+.btn {
+    text-transform:uppercase;
+    padding: .8em;
+    font-weight: bold;
+}
+
+.btn-primary {
+    color: #fff;
+    font-size: 1em;
+    background: #0099cc;
+    border: 0;
 }
 
 [contenteditable=true]:empty:before{
@@ -101,22 +160,59 @@ select {
 
 /* Grid */
 
-.row {
-    width: 100%;
+.wrapper {
+    width: 90%;
+    max-width: 764px;
+    min-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wrapper-small {
+    max-width: 400px;
+}
+
+
+.row:after, .cf:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: ' ';
+     clear: both;
+     height: 0;
+ }
+
+.quarter, .third, .half, .two-thirds, .three-fourths {
+    float: left;
+    padding-right: 1em;
+    box-sizing: border-box;
+}
+
+.quarter {
+    width: 25%;
+}
+
+.third: {
+    width: 33%;
 }
 
 .half {
     width: 50%;
-    float: left;
-    padding-right: .5em;
+}
+
+.two-thirds {
+    width: 66%;
+}
+
+.three-fourths {
+    width: 75%;
 }
 
 .full {
-    width: 100%;
-    max-width: 100%;
+    width: 100%
 }
 
-.last {
+body .last {
     padding-right: 0;
 }
 
@@ -164,13 +260,36 @@ select {
     margin-right: .4em;
 }
 
-/* Idea styling*/
+/* Geo suggest styling*/
+.geosuggest__input {
+    margin-bottom: 0;
+}
+.geosuggest__suggests {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0;
+}
 
-.idea-item {
+.geosuggest-item {
+    padding: .6em;
+    border-left: 1px solid #0099cc;
+    border-bottom: 1px solid #ccc;
     background: #fff;
-    padding: .4em 1em;
-    border: 1px solid #ddd;
-    margin-bottom: .4em;
+    border-right: 1px solid #0099cc;
+}
+
+.geosuggest-item:first-child {
+    border-top: 1px solid #0099cc;
+}
+
+.geosuggest-item:last-child {
+    border-bottom: 1px solid #0099cc;
+}
+
+
+.geosuggest-item.geosuggest-item--active, .geosuggest-item:hover {
+    background: #0099cc;
+    color: #fff;
 }
 
 /*
@@ -201,29 +320,42 @@ body .hidden {
     margin-right: -.4em;
 }
 
-.mr {
-    margin-right: .4em;
+body .mr {
+    margin-right: .8em;
 }
 
-.ml {
-    margin-left: .4em;
+body .ml {
+    margin-left: .8em;
 }
 
-.mb {
-    margin-bottom: .4em;
+body .mb {
+    margin-bottom: .8em;
 }
 
-.db {
+body .mt0 {
+    margin-top: 0;
+}
+
+body .mb0 {
+    margin-bottom: 0;
+}
+
+body .nospace {
+    padding: 0;
+    margin: 0;
+}
+
+body .db {
     display: block;
 }
 
-.centered {
+body .centered {
     margin-left: auto;
     margin-right: auto;
     display: block;
 }
 
-.row:after, .cf:after {
+body .row:after, .cf:after {
      visibility: hidden;
      display: block;
      font-size: 0;
