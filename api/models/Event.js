@@ -8,33 +8,36 @@
 module.exports = {
 
   attributes: {
-      eventName: {
+        eventName: {
           type: 'string',
           maxLength: 100,
           required: true
-      },
-      eventType: {
+        },
+        eventType: {
           type: 'string',
           maxLength: 100,
           required: true
-      },
-      eventHost: {
+        },
+        eventHost: {
           type: 'string',
           maxLength: 100,
           required: true
-      },
-      eventStart: {
+        },
+        eventStart: {
           type: 'date',
           required: true
-      },
-      eventEnd: {
+        },
+        eventEnd: {
           type: 'date',
           required: true
-      },
-      location: {
+        },
+        location: {
           type: 'string',
           maxLength: 100,
           required: true
-      }
+        },
+        owner: {
+          type: 'string'
+        }
   }
 };

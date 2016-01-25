@@ -58,9 +58,9 @@ module.exports.policies = {
     UserController: {
         'create': true
     },
-     IdeaController: {
-         'create': ['setOwner']
-     }
+    EventController: {
+        'create': ['setOwner']
+    }
 
 
 };
