@@ -67,13 +67,15 @@ var AddEventsForm = React.createClass({
                 name: 'eventName',
                 type: 'text',
                 value: '',
-                placeholder: 'Beth\'s 30th Birthday'
+                placeholder: 'Beth\'s 30th Birthday',
+                required: true
             },
             location: {
                 name: 'location',
                 type: 'text',
                 value: '',
-                placeholder: 'San Francisco, CA'
+                placeholder: 'San Francisco, CA',
+                required: true
             },
             eventType: {
                 name: 'eventType',
@@ -81,23 +83,43 @@ var AddEventsForm = React.createClass({
                 value: '',
                 placeholder: 'Birthday Party',
                 list: 'eventType-list',
-                options: ['Birthday Party', 'Conference Talk', 'Wedding', 'Other']
+                options: ['Birthday Party', 'Conference Talk', 'Wedding', 'Other'],
+                required: true
+            },
+            guest: {
+                name: 'guest',
+                type: 'text',
+                value: '',
+                placeholder: 'Guest List'
             },
             eventHost: {
                 name: 'eventHost',
                 type: 'text',
                 value: '',
-                placeholder: 'Your Name'
+                placeholder: 'Your Name',
+                required: true
             },
             eventStart: {
                 name: 'eventStart',
                 type: 'datetime-local',
-                value: ''
+                value: '',
+                required: true
             },
             eventEnd: {
-                name: 'eventStart',
+                name: 'eventEnd',
                 type: 'datetime-local',
-                value: ''
+                value: '',
+                required: true
+            },
+            aboutEvent: {
+                name: 'aboutEvent',
+                type: 'text',
+                value: '',
+                placeholder: ''
+            },
+            message: {
+                value: '',
+                status: ''
             },
             fixtures: [{ label: 'Seattle, WA', location: { lat: 47.6062095, lng: -122.3320708 } }, { label: 'San Francisco, CA', location: { lat: 37.7749295, lng: -122.41941550000001 } }, { label: 'New York, NY', location: { lat: 40.712784, lng: -74.005941 } }, { label: 'Miami, FL', location: { lat: 25.7616798, lng: -80.19179020000001 } }]
         };
@@ -113,66 +135,51 @@ var AddEventsForm = React.createClass({
         });
     },
     handleSubmit: function handleSubmit(event) {
-        var _this = this;
-
         event.preventDefault();
-        var updateState = this.state.email;
+        var self = this;
 
-        if (this.state.email.value == '' || this.state.email.status == 'invalid') {
-            updateState.message = 'Please provide valid email';
-            this.setState(updateState);
-        } else {
-            (function () {
-                var self = _this;
-                var newUser = {
-                    email: _this.state.email.value,
-                    fullname: _this.state.fullname.value,
-                    bio: _this.state.bio.value,
-                    password: _this.state.password.value
-                };
+        var newEvent = {
+            eventName: this.state.eventName.value,
+            location: this.state.location.value,
+            eventType: this.state.eventType.value,
+            eventHost: this.state.eventHost.value,
+            eventStart: new Date(this.state.eventStart.value).toISOString(),
+            eventEnd: new Date(this.state.eventEnd.value).toISOString()
+        };
 
-                var settings = {
-                    method: 'POST',
-                    body: JSON.stringify(newUser)
-                };
+        var settings = {
+            method: 'POST',
+            body: JSON.stringify(newEvent)
+        };
 
-                (0, _makeRequest2.default)('/api/v1/user', settings).then(function (response) {
-                    console.log(response);
-                    if (response.code === "CREATED") {
-                        self.setState({
-                            message: {
-                                value: 'Successfully created account.',
-                                status: 'valid'
-                            }
-                        });
-
-                        var User = {
-                            email: newUser.email,
-                            password: newUser.password
-                        };
-
-                        _auth2.default.loginUser(User, function (err, response) {
-                            self.history.pushState(null, '/u');
-                        });
-                    } else {
-                        self.setState({
-                            message: {
-                                value: 'Something went wrong.',
-                                status: 'invalid'
-                            }
-                        });
+        (0, _makeRequest2.default)('/api/v1/event', settings).then(function (response) {
+            console.log(response);
+            if (response.code === "CREATED") {
+                self.setState({
+                    message: {
+                        value: 'Successfully created event.',
+                        status: 'valid'
                     }
-                }).catch(function (error) {
-                    console.log(error);
-                    self.setState({
-                        message: {
-                            value: 'Email is already registered.',
-                            status: 'invalid'
-                        }
-                    });
                 });
-            })();
-        }
+
+                console.log(response);
+            } else {
+                self.setState({
+                    message: {
+                        value: 'Something went wrong.',
+                        status: 'invalid'
+                    }
+                });
+            }
+        }).catch(function (error) {
+            console.log(error);
+            self.setState({
+                message: {
+                    value: 'Something went wrong.',
+                    status: 'invalid'
+                }
+            });
+        });
     },
     render: function render() {
 
@@ -214,7 +221,7 @@ var AddEventsForm = React.createClass({
                 React.createElement(
                     _label2.default,
                     { 'for': 'eventStart', text: 'Event Starts*' },
-                    React.createElement(_input2.default, _extends({}, this.state.eventStart, { id: 'eventStart', onChange: this.handleChange }))
+                    React.createElement(_input2.default, _extends({}, this.state.eventStart, { onChange: this.handleChange }))
                 )
             ),
             React.createElement(
@@ -227,26 +234,45 @@ var AddEventsForm = React.createClass({
                 )
             ),
             React.createElement(
-                _label2.default,
-                { 'for': 'location', text: 'Location*' },
-                React.createElement(_geolocate2.default, {
-                    placeholder: 'Start typing!',
-                    initialValue: 'Seattle, WA',
-                    fixtures: this.state.fixtures,
-                    onSuggestSelect: this.onSuggestSelect,
-                    location: new google.maps.LatLng(53.558572, 9.9278215),
-                    radius: '20' })
+                'div',
+                { className: 'half' },
+                React.createElement(
+                    _label2.default,
+                    { 'for': 'guest', text: 'Guest List' },
+                    React.createElement(_input2.default, _extends({}, this.state.guest, { onChange: this.handleChange }))
+                )
+            ),
+            React.createElement(
+                'div',
+                { className: 'half last' },
+                ' '
+            ),
+            React.createElement(
+                'div',
+                { className: 'cf' },
+                React.createElement(
+                    _label2.default,
+                    { 'for': 'location', text: 'Location*' },
+                    React.createElement(_geolocate2.default, {
+                        placeholder: 'Start typing!',
+                        initialValue: 'Seattle, WA',
+                        fixtures: this.state.fixtures,
+                        onSuggestSelect: this.onSuggestSelect,
+                        location: new google.maps.LatLng(53.558572, 9.9278215),
+                        radius: '20' })
+                )
             ),
             React.createElement(
                 _label2.default,
-                { 'for': 'message', text: 'Message (optional)', className: 'cf' },
-                React.createElement(_textarea2.default, _extends({}, this.state.message, { className: 'mb', rows: '6', cols: '50', maxLength: '400', onChange: this.handleChange })),
+                { 'for': 'aboutEvent', text: 'About Event (optional)', className: 'cf' },
+                React.createElement(_textarea2.default, _extends({}, this.state.aboutEvent, { className: 'mb', rows: '6', cols: '50', maxLength: '400', onChange: this.handleChange })),
                 React.createElement(
                     'p',
                     { className: 'fr mt0' },
                     'Max chars 400'
                 )
             ),
+            React.createElement(_message2.default, { message: this.state.message.value, className: this.state.message.status }),
             React.createElement(_input2.default, { type: 'submit', value: 'Register Event', className: 'btn btn-primary centered' })
         );
     }
@@ -1339,6 +1365,9 @@ exports.default = UserPage;
 },{}],21:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 // Helper function to get current user after authenticating
 var endpoint = '/api/v1/auth';
 var Auth = {};
@@ -1410,7 +1439,7 @@ Auth.isLoggedIn = function () {
     return Auth.getUser() ? true : false;
 };
 
-module.exports = Auth;
+exports.default = Auth;
 
 },{}],22:[function(require,module,exports){
 'use strict';
@@ -1453,7 +1482,7 @@ var defaultOptions = {
 var token = _auth2.default.getToken();
 
 // If token exists update options header token with token string
-if (token) defaultOptions.headers.token = 'Authorization: Bearer: ' + token;
+if (token) defaultOptions.headers.Authorization = 'Bearer: ' + token;
 
 function makeRequest(endpoint, userOptions) {
 	var options = Object.assign(defaultOptions, userOptions);

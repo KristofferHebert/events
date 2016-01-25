@@ -72,4 +72,4 @@ Auth.isLoggedIn = function(){
 }
 
 
-module.exports = Auth
+export default Auth

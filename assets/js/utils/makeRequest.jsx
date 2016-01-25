@@ -28,7 +28,7 @@ let defaultOptions = {
 let token = Auth.getToken()
 
 // If token exists update options header token with token string
-if (token) defaultOptions.headers.token = 'Authorization: Bearer: ' + token
+if (token) defaultOptions.headers.Authorization = 'Bearer: ' + token
 
 function makeRequest(endpoint, userOptions) {
     let options = Object.assign(defaultOptions, userOptions)

@@ -22,13 +22,15 @@ const AddEventsForm = React.createClass({
               name: 'eventName',
               type: 'text',
               value: '',
-              placeholder : 'Beth\'s 30th Birthday'
+              placeholder : 'Beth\'s 30th Birthday',
+              required: true
             },
             location: {
               name: 'location',
               type: 'text',
               value: '',
-              placeholder : 'San Francisco, CA'
+              placeholder : 'San Francisco, CA',
+              required: true
             },
             eventType: {
               name: 'eventType',
@@ -36,23 +38,43 @@ const AddEventsForm = React.createClass({
               value: '',
               placeholder : 'Birthday Party',
               list: 'eventType-list',
-              options: ['Birthday Party', 'Conference Talk', 'Wedding', 'Other']
+              options: ['Birthday Party', 'Conference Talk', 'Wedding', 'Other'],
+              required: true
+            },
+            guest: {
+              name: 'guest',
+              type: 'text',
+              value: '',
+              placeholder : 'Guest List'
             },
             eventHost: {
               name: 'eventHost',
               type: 'text',
               value: '',
-              placeholder : 'Your Name'
+              placeholder : 'Your Name',
+              required: true
             },
             eventStart: {
               name: 'eventStart',
               type: 'datetime-local',
-              value: ''
+              value: '',
+              required: true
             },
             eventEnd: {
-              name: 'eventStart',
+              name: 'eventEnd',
               type: 'datetime-local',
-              value: ''
+              value: '',
+              required: true
+            },
+            aboutEvent: {
+                name: 'aboutEvent',
+                type: 'text',
+                value: '',
+                placeholder : ''
+            },
+            message: {
+                value: '',
+                status: ''
             },
             fixtures: [
               {label: 'Seattle, WA', location: {lat: 47.6062095, lng: -122.3320708}},
@@ -73,66 +95,56 @@ const AddEventsForm = React.createClass({
     },
     handleSubmit(event){
         event.preventDefault()
-        var updateState = this.state.email
+        let self = this
 
-        if(this.state.email.value == '' || this.state.email.status == 'invalid'){
-          updateState.message = 'Please provide valid email'
-          this.setState(updateState)
-        } else {
-            let self = this
-            let newUser = {
-                email: this.state.email.value,
-                fullname: this.state.fullname.value,
-                bio:  this.state.bio.value,
-                password: this.state.password.value
-            }
+        let newEvent = {
+            eventName: this.state.eventName.value,
+            location: this.state.location.value,
+            eventType: this.state.eventType.value,
+            eventHost: this.state.eventHost.value,
+            eventStart: new Date(this.state.eventStart.value).toISOString(),
+            eventEnd: new Date(this.state.eventEnd.value).toISOString()
+        }
 
-            let settings = {
-                method: 'POST',
-                body: JSON.stringify(newUser),
-            }
+        let settings = {
+            method: 'POST',
+            body: JSON.stringify(newEvent)
+        }
 
-            makeRequest('/api/v1/user', settings)
-                .then(function(response){
-                    console.log(response)
-                    if(response.code === "CREATED") {
-                        self.setState({
-                            message : {
-                                value: 'Successfully created account.',
-                                status: 'valid'
-                            }
-                        })
-
-                        let User = {
-                            email: newUser.email,
-                            password: newUser.password
-                        }
-
-                        Auth.loginUser(User, function(err, response){
-                            self.history.pushState(null, '/u')
-                        })
-
-                    } else {
-                        self.setState({
-                            message : {
-                                value: 'Something went wrong.',
-                                status: 'invalid'
-                            }
-                        })
-                    }
-
-                })
-                .catch(function(error){
-                    console.log(error)
+        makeRequest('/api/v1/event', settings)
+            .then(function(response){
+                console.log(response)
+                if(response.code === "CREATED") {
                     self.setState({
                         message : {
-                            value: 'Email is already registered.',
+                            value: 'Successfully created event.',
+                            status: 'valid'
+                        }
+                    })
+
+                    console.log(response)
+
+                } else {
+                    self.setState({
+                        message : {
+                            value: 'Something went wrong.',
                             status: 'invalid'
                         }
                     })
-                })
+                }
 
-        }
+            })
+            .catch(function(error){
+                console.log(error)
+                self.setState({
+                    message : {
+                        value: 'Something went wrong.',
+                        status: 'invalid'
+                    }
+                })
+            })
+
+
     },
     render(){
 
@@ -153,27 +165,38 @@ const AddEventsForm = React.createClass({
                         <Datalist id="eventType-list"  options={this.state.eventType.options} onChange={this.handleChange} />
                     </Label>
                 </div>
-
-                   <div className="half"><Label for="eventStart" text="Event Starts*">
-                     <Input {...this.state.eventStart} id="eventStart" onChange={this.handleChange}/>
-                   </Label></div>
-                   <div className="half last">
-                   <Label for="eventEnd" text="Event Ends*">
-                     <Input {...this.state.eventEnd} onChange={this.handleChange}/>
-                   </Label></div>
-                   <Label for="location" text="Location*">
-                    <Geosuggest
+                <div className="half">
+                    <Label for="eventStart" text="Event Starts*">
+                        <Input {...this.state.eventStart} onChange={this.handleChange}/>
+                    </Label>
+                </div>
+                <div className="half last">
+                    <Label for="eventEnd" text="Event Ends*">
+                        <Input {...this.state.eventEnd} onChange={this.handleChange}/>
+                    </Label>
+                </div>
+                <div className="half">
+                    <Label for="guest" text="Guest List">
+                        <Input {...this.state.guest} onChange={this.handleChange}/>
+                    </Label>
+                </div>
+                <div className="half last">&nbsp;</div>
+                <div className="cf">
+                    <Label for="location" text="Location*">
+                        <Geosuggest
                         placeholder="Start typing!"
                         initialValue="Seattle, WA"
                         fixtures={this.state.fixtures}
                         onSuggestSelect={this.onSuggestSelect}
                         location={new google.maps.LatLng(53.558572, 9.9278215)}
                         radius="20" />
-                   </Label>
-                   <Label for="message" text="Message (optional)" className="cf">
-                    <Textarea {...this.state.message} className="mb" rows="6" cols="50" maxLength="400" onChange={this.handleChange}/>
+                    </Label>
+                </div>
+                <Label for="aboutEvent" text="About Event (optional)" className="cf">
+                    <Textarea {...this.state.aboutEvent} className="mb" rows="6" cols="50" maxLength="400" onChange={this.handleChange}/>
                     <p className="fr mt0">Max chars 400</p>
-                  </Label>
+                </Label>
+                <Message message={this.state.message.value} className={this.state.message.status}/>
                 <Input type="submit" value="Register Event" className="btn btn-primary centered"/>
             </Form>
         )

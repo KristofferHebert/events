@@ -65,6 +65,7 @@ input:focus, textarea:focus {
     border: 1px solid rgba(81, 203, 238, 1);
 }
 
+
 .invalid, .invalid:focus {
     border-color: red;
     box-shadow: 0 0 3px red;
@@ -75,6 +76,20 @@ input:focus, textarea:focus {
     border-color: red;
     box-shadow: 0 0 3px #4CAF50;
     border: 1px solid #4CAF50;
+}
+
+.message {
+    padding: .6em;
+    color: #fff;
+    box-shadow: none;
+}
+
+.message.valid {
+    background-color: rgba(76, 175, 80, 0.49);
+}
+
+.message.invalid {
+    background-color: rgba(255, 0, 0, 0.49);
 }
 
 label span{
@@ -172,6 +187,9 @@ select {
     max-width: 400px;
 }
 
+.cf {
+    clear: both;
+}
 
 .row:after, .cf:after {
      visibility: hidden;
@@ -353,13 +371,4 @@ body .centered {
     margin-left: auto;
     margin-right: auto;
     display: block;
-}
-
-body .row:after, .cf:after {
-     visibility: hidden;
-     display: block;
-     font-size: 0;
-     content: " ";
-     clear: both;
-     height: 0;
 }
