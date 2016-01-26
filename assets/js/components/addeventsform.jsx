@@ -28,8 +28,8 @@ const AddEventsForm = React.createClass({
             location: {
               name: 'location',
               type: 'text',
-              value: '',
-              placeholder : 'San Francisco, CA',
+              value: 'Seattle, WA',
+              placeholder : 'Seattle, WA',
               required: true
             },
             eventType: {
@@ -113,7 +113,7 @@ const AddEventsForm = React.createClass({
 
         makeRequest('/api/v1/event', settings)
             .then(function(response){
-                console.log(response)
+
                 if(response.code === "CREATED") {
                     self.setState({
                         message : {
@@ -121,8 +121,6 @@ const AddEventsForm = React.createClass({
                             status: 'valid'
                         }
                     })
-
-                    console.log(response)
 
                 } else {
                     self.setState({

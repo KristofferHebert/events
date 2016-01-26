@@ -1,11 +1,21 @@
-import Auth from '../utils/auth.jsx'
 import makeRequest from '../utils/makeRequest.jsx'
-import EventList from '../components/events/EventList.jsx'
+import Time from '../utils/Time.jsx'
 
-const UserPage = React.createClass({
+const EventPage = React.createClass({
     getInitialState(){
         return {
-            events: []
+            event: {
+                createdAt: "",
+                eventEnd: "",
+                eventHost: "",
+                eventName: "",
+                eventStart: "",
+                eventType: "",
+                id: "",
+                location: "",
+                owner: "",
+                updatedAt: ""
+            }
         }
     },
     componentDidMount(){
@@ -14,14 +24,14 @@ const UserPage = React.createClass({
             method: 'GET'
         }
 
-        let userId = Auth.getId()
+        let eventId = this.props.params.eventId
 
         // Get events by user
-        makeRequest('/api/v1/event?owner=' + userId, settings)
+        makeRequest('/api/v1/event/' + eventId, settings)
             .then(function(response){
                 if(response) {
                     self.setState({
-                        events : [response['0']]
+                        event : response
                     })
 
                 } else {
@@ -48,12 +58,14 @@ const UserPage = React.createClass({
     render(){
         return (
             <section>
-                <h3>My Events</h3>
-                <EventList events={this.state.events} />
+                <h2>{this.state.event.eventName} <span className="fr"><Time iso={this.state.event.eventStart} /></span></h2>
+                <p className="small">Host: {this.state.event.eventHost} <br /><span>Type: {this.state.event.eventType}</span></p>
+                <h4>Location:</h4>
+                <address>{this.state.event.location}</address>
             </section>
         )
     }
 })
 
 
-export default UserPage
+export default EventPage

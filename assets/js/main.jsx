@@ -9,6 +9,7 @@ import SignUpPage from './pages/signuppage.jsx'
 import LoginPage from './pages/loginpage.jsx'
 import UserPage from './pages/userpage.jsx'
 import AddEventsPage from './pages/addeventspage.jsx'
+import EventPage from './pages/eventpage.jsx'
 
 var Routes = (
     <Route path="/" component={Wrapper}>
@@ -17,7 +18,7 @@ var Routes = (
         <Route path="login" component={LoginPage} />
         <Route path="u" component={UserPage} />
         <Route path="u/addevents" component={AddEventsPage} />
-
+        <Route path="u/event/:eventId" component={EventPage} />
     </Route>
 )
 

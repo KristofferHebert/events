@@ -40,7 +40,7 @@ var Wrapper = React.createClass({
                                 <li className={ (isLoggedIn && showBackButton) ? 'fl' : 'hidden'}><a href="#" className="fa fa-chevron-left menu-item" onClick={this.goBack}>Back</a></li>
                                 <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><a href="#" className="fa fa-bars menu-item" onClick={this.toggleMenu}>Menu</a></li>
                                 <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><Link to="/u/addevents" className="fa fa-edit menu-item">Add New Event</Link></li>
-                                <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><Link className="fa fa-plus-square menu-item" to="/u/events">My Events</Link></li>
+                                <li className={ (isLoggedIn) ? 'fr' : 'hidden'}><Link className="fa fa-plus-square menu-item" to="/u/">My Events</Link></li>
 
                             </ul>
                         </nav>
