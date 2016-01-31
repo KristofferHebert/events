@@ -102,6 +102,7 @@ const AddEventsForm = React.createClass({
             eventType: this.state.eventType.value,
             aboutEvent: this.state.aboutEvent.value,
             eventHost: this.state.eventHost.value,
+            guest: this.state.guest.value,
             eventStart: new Date(this.state.eventStart.value).toISOString(),
             eventEnd: new Date(this.state.eventEnd.value).toISOString()
         }

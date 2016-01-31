@@ -20,6 +20,10 @@ a:hover {
     text-decoration: underline;
 }
 
+nav a:hover {
+        text-decoration: none;
+}
+
 address {
     font-style: normal;
 }
