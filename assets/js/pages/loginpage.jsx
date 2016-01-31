@@ -3,7 +3,7 @@ import LoginForm from '../components/loginForm.jsx'
 const LoginPage = React.createClass({
     render(){
         return (
-            <section>
+            <section className="wrapper wrapper-small">
                 <LoginForm />
             </section>
         )

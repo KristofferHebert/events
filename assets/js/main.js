@@ -142,6 +142,7 @@ var AddEventsForm = React.createClass({
             eventName: this.state.eventName.value,
             location: this.state.location.value,
             eventType: this.state.eventType.value,
+            aboutEvent: this.state.aboutEvent.value,
             eventHost: this.state.eventHost.value,
             eventStart: new Date(this.state.eventStart.value).toISOString(),
             eventEnd: new Date(this.state.eventEnd.value).toISOString()
@@ -161,6 +162,8 @@ var AddEventsForm = React.createClass({
                         status: 'valid'
                     }
                 });
+
+                self.history.pushState('/u', null);
             } else {
                 self.setState({
                     message: {
@@ -270,7 +273,7 @@ var AddEventsForm = React.createClass({
                     'Max chars 400'
                 )
             ),
-            React.createElement(_message2.default, { message: this.state.message.value, className: this.state.message.status }),
+            React.createElement(_message2.default, { message: this.state.message.value, status: this.state.message.status }),
             React.createElement(_input2.default, { type: 'submit', value: 'Register Event', className: 'btn btn-primary centered' })
         );
     }
@@ -307,7 +310,7 @@ var EventList = React.createClass({
                     'a',
                     { href: '#/u/event/' + event.id },
                     React.createElement(
-                        'h4',
+                        'h3',
                         null,
                         event.eventName,
                         ' ',
@@ -338,7 +341,7 @@ var EventList = React.createClass({
 
         return React.createElement(
             'ul',
-            { className: 'eventList' },
+            { className: 'list-nostyle eventList' },
             events
         );
     }
@@ -703,6 +706,7 @@ var LoginForm = React.createClass({
             password: {
                 name: 'password',
                 type: 'password',
+                placeholder: 'Password',
                 value: ''
             },
             message: {
@@ -761,16 +765,16 @@ var LoginForm = React.createClass({
                 _label2.default,
                 { 'for': 'email', text: 'Email*' },
                 React.createElement(_input2.default, _extends({}, this.state.email, { onChange: this.handleChange })),
-                React.createElement(_message2.default, { message: this.state.email.message })
+                React.createElement(_message2.default, { message: this.state.email.message, status: this.state.email.status })
             ),
             React.createElement(
                 _label2.default,
                 { 'for': 'password', text: 'Password*' },
                 React.createElement(_input2.default, _extends({}, this.state.password, { onChange: this.handleChange })),
-                React.createElement(_message2.default, { message: this.state.password.message })
+                React.createElement(_message2.default, { message: this.state.password.message, status: this.state.password.status })
             ),
             React.createElement(_message2.default, { message: this.state.message.value, className: this.state.message.status }),
-            React.createElement(_input2.default, { type: 'submit', value: 'Login', className: 'btn btn-primary' })
+            React.createElement(_input2.default, { type: 'submit', value: 'Login', className: 'btn btn-primary centered' })
         );
     }
 });
@@ -964,13 +968,13 @@ var SignupForm = React.createClass({
                 _label2.default,
                 { 'for': 'email', text: 'Email*' },
                 React.createElement(_input2.default, _extends({}, this.state.email, { onChange: this.handleChange })),
-                React.createElement(_message2.default, { message: this.state.email.message })
+                React.createElement(_message2.default, { message: this.state.email.message, status: this.state.email.status })
             ),
             React.createElement(
                 _label2.default,
                 { 'for': 'password', text: 'Password*' },
                 React.createElement(_input2.default, _extends({}, this.state.password, { onChange: this.handleChange })),
-                React.createElement(_message2.default, { message: this.state.password.message })
+                React.createElement(_message2.default, { message: this.state.password.message, status: this.state.password.status })
             ),
             React.createElement(
                 'p',
@@ -991,14 +995,14 @@ var SignupForm = React.createClass({
                     React.createElement(_textarea2.default, _extends({}, this.state.bio, { rows: '4', cols: '50', maxLength: '400', onChange: this.handleChange })),
                     React.createElement(
                         'p',
-                        { className: 'fr small' },
+                        { className: 'mt0 fr small' },
                         '400 characters max'
                     )
                 ),
                 React.createElement(
                     _section2.default,
                     { show: this.state.fullname.value !== '' },
-                    React.createElement(_input2.default, { type: 'submit', value: 'Sign up', className: 'btn btn-primary' })
+                    React.createElement(_input2.default, { type: 'submit', value: 'Sign up', className: 'btn btn-primary centered' })
                 )
             ),
             React.createElement(_message2.default, { message: this.state.message.value, className: this.state.message.status })
@@ -1040,9 +1044,9 @@ var Wrapper = React.createClass({
         _auth2.default.logoutUser();
         this.history.pushState(null, '/');
     },
-    isEditPage: function isEditPage() {
+    isAddEventPage: function isAddEventPage() {
         var hash = window.location.hash.split('/');
-        return hash.length === 4 && hash[2] === 'idea';
+        return hash.length === 4 && hash[2] === 'addevents';
     },
     goBack: function goBack() {
         this.history.goBack();
@@ -1051,7 +1055,7 @@ var Wrapper = React.createClass({
     render: function render() {
         var isLoggedIn = _auth2.default.isLoggedIn();
         var Home = isLoggedIn ? '/u/' : '/';
-        var showBackButton = this.isEditPage();
+        var showBackButton = this.isAddEventPage();
 
         return React.createElement(
             'div',
@@ -1144,15 +1148,6 @@ var Wrapper = React.createClass({
                     React.createElement(
                         'ul',
                         { className: 'list-nostyle' },
-                        React.createElement(
-                            'li',
-                            null,
-                            React.createElement(
-                                _reactRouter.Link,
-                                { to: '/u/settings', className: 'fa fa-cog menu-item-vertical' },
-                                'Settings'
-                            )
-                        ),
                         React.createElement(
                             'li',
                             null,
@@ -1306,6 +1301,10 @@ var _Time = require('../utils/Time.jsx');
 
 var _Time2 = _interopRequireDefault(_Time);
 
+var _section = require('../components/section.jsx');
+
+var _section2 = _interopRequireDefault(_section);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var EventPage = React.createClass({
@@ -1321,7 +1320,8 @@ var EventPage = React.createClass({
                 id: "",
                 location: "",
                 owner: "",
-                updatedAt: ""
+                updatedAt: "",
+                aboutEvent: ""
             }
         };
     },
@@ -1373,6 +1373,12 @@ var EventPage = React.createClass({
                 )
             ),
             React.createElement(
+                'div',
+                { className: 'tar' },
+                'Ends at: ',
+                React.createElement(_Time2.default, { iso: this.state.event.eventStart })
+            ),
+            React.createElement(
                 'p',
                 { className: 'small' },
                 'Host: ',
@@ -1387,14 +1393,38 @@ var EventPage = React.createClass({
                 )
             ),
             React.createElement(
-                'h4',
-                null,
-                'Location:'
+                'p',
+                { className: 'cb' },
+                React.createElement(
+                    'strong',
+                    null,
+                    'Location'
+                ),
+                ': ',
+                this.state.event.location,
+                ' (',
+                React.createElement(
+                    'a',
+                    { href: "https://www.google.com/maps?q=" + this.state.event.location, target: '_blank' },
+                    'map'
+                ),
+                ')'
             ),
             React.createElement(
-                'address',
-                null,
-                this.state.event.location
+                _section2.default,
+                { show: this.state.event.aboutEvent !== '' },
+                React.createElement(
+                    'p',
+                    null,
+                    React.createElement(
+                        'strong',
+                        null,
+                        'About Event'
+                    ),
+                    ': ',
+                    this.state.event.aboutEvent,
+                    ' '
+                )
             )
         );
     }
@@ -1402,7 +1432,7 @@ var EventPage = React.createClass({
 
 exports.default = EventPage;
 
-},{"../utils/Time.jsx":23,"../utils/makeRequest.jsx":25}],19:[function(require,module,exports){
+},{"../components/section.jsx":11,"../utils/Time.jsx":23,"../utils/makeRequest.jsx":25}],19:[function(require,module,exports){
 'use strict';
 
 // Fetch dependencies
@@ -1434,6 +1464,11 @@ var HomePage = React.createClass({
                 'section',
                 { className: 'section tc' },
                 React.createElement(
+                    'h1',
+                    { className: 'extra-large thin' },
+                    'Events'
+                ),
+                React.createElement(
                     'h2',
                     null,
                     'Events helps you create and share events with your friends.'
@@ -1443,14 +1478,14 @@ var HomePage = React.createClass({
                     null,
                     React.createElement(
                         _reactRouter.Link,
-                        { to: '/signup', className: 'btn btn-primary' },
+                        { to: '/signup', className: 'btn btn-primary centered' },
                         'Sign Up – It’s Free.'
                     )
                 )
             ),
             React.createElement(
                 'section',
-                { className: 'tc' },
+                { className: 'section-small section-white tc' },
                 React.createElement(
                     'h2',
                     null,
@@ -1473,13 +1508,13 @@ var HomePage = React.createClass({
 exports.default = HomePage;
 
 },{"../utils/auth.jsx":24,"react-router":76}],20:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _loginForm = require('../components/loginForm.jsx');
+var _loginForm = require("../components/loginForm.jsx");
 
 var _loginForm2 = _interopRequireDefault(_loginForm);
 
@@ -1488,8 +1523,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var LoginPage = React.createClass({
     render: function render() {
         return React.createElement(
-            'section',
-            null,
+            "section",
+            { className: "wrapper wrapper-small" },
             React.createElement(_loginForm2.default, null)
         );
     }
@@ -1498,13 +1533,13 @@ var LoginPage = React.createClass({
 exports.default = LoginPage;
 
 },{"../components/loginForm.jsx":10}],21:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _signupform = require('../components/signupform.jsx');
+var _signupform = require("../components/signupform.jsx");
 
 var _signupform2 = _interopRequireDefault(_signupform);
 
@@ -1513,8 +1548,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var SignUpPage = React.createClass({
     render: function render() {
         return React.createElement(
-            'section',
-            null,
+            "section",
+            { className: "wrapper wrapper-small" },
             React.createElement(_signupform2.default, null)
         );
     }
@@ -1561,7 +1596,7 @@ var UserPage = React.createClass({
         (0, _makeRequest2.default)('/api/v1/event?owner=' + userId, settings).then(function (response) {
             if (response) {
                 self.setState({
-                    events: [response['0']]
+                    events: response
                 });
             } else {
                 self.setState({

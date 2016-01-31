@@ -101,6 +101,7 @@ const AddEventsForm = React.createClass({
             eventName: this.state.eventName.value,
             location: this.state.location.value,
             eventType: this.state.eventType.value,
+            aboutEvent: this.state.aboutEvent.value,
             eventHost: this.state.eventHost.value,
             eventStart: new Date(this.state.eventStart.value).toISOString(),
             eventEnd: new Date(this.state.eventEnd.value).toISOString()
@@ -121,6 +122,8 @@ const AddEventsForm = React.createClass({
                             status: 'valid'
                         }
                     })
+
+                    self.history.pushState('/u', null)
 
                 } else {
                     self.setState({
@@ -194,7 +197,7 @@ const AddEventsForm = React.createClass({
                     <Textarea {...this.state.aboutEvent} className="mb" rows="6" cols="50" maxLength="400" onChange={this.handleChange}/>
                     <p className="fr mt0">Max chars 400</p>
                 </Label>
-                <Message message={this.state.message.value} className={this.state.message.status}/>
+                <Message message={this.state.message.value} status={this.state.message.status}/>
                 <Input type="submit" value="Register Event" className="btn btn-primary centered"/>
             </Form>
         )

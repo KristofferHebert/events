@@ -12,7 +12,7 @@ const EventList = React.createClass({
             return (
                 <li key={i}>
                     <a href={'#/u/event/' + event.id}>
-                        <h4>{event.eventName} <span className="fr"><Time iso={event.eventStart} /></span></h4>
+                        <h3>{event.eventName} <span className="fr"><Time iso={event.eventStart} /></span></h3>
                         <p className="small">Host: {event.eventHost} <br /><span>Type: {event.eventType}</span></p>
                         <p></p>
                     </a>
@@ -21,7 +21,7 @@ const EventList = React.createClass({
         })
 
         return (
-            <ul className="eventList">
+            <ul className="list-nostyle eventList">
                 {events}
             </ul>
         )

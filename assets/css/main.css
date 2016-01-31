@@ -7,12 +7,17 @@ body {
     padding: 0;
     margin: 0;
     background: #e2e4e6;
-    color: #4d4d4d;
+    color: #302f2e;
     font-size: 100%;
 }
 
 a, .fa {
     color: #2b7bb9;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 address {
@@ -20,7 +25,7 @@ address {
 }
 
 input, select, .btn, .input-content, textarea {
-    padding: .5em;
+    padding: .6em;
     margin: 0 0 1.2em;
     border: 1px solid #ccc;
     clear: both;
@@ -28,6 +33,11 @@ input, select, .btn, .input-content, textarea {
     min-width: 288px;
     display: block;
     font-size: 1.1em;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    outline: none;
 }
 
 input[type="checkbox"] {
@@ -48,20 +58,6 @@ input::-moz-placeholder {
 
 input:-ms-input-placeholder {
     color: #999;
-}
-
-input, textarea {
-    margin-bottom: 1.4em;
-    width: 100%;
-    display:block;
-    padding: .6em;
-    font-size: 1em;
-    border: 1px solid #ddd;
-    -webkit-transition: all 0.1s ease-in-out;
-    -moz-transition: all 0.1s ease-in-out;
-    -ms-transition: all 0.1s ease-in-out;
-    -o-transition: all 0.1s ease-in-out;
-    outline: none;
 }
 
 input:focus, textarea:focus {
@@ -111,19 +107,54 @@ label span{
     width: inherit;
 }
 
+/* event list*/
+
+.eventList {
+    background: #F8F8F8;
+    border: 1px solid #ddd;
+    border-radius: 0.7em;
+}
+
+.eventList > li {
+    padding: 0 1em 1em;
+    border-bottom: 1px solid #ddd
+}
+
+.eventList > li:last-child {
+    border-bottom: 0;
+}
+
+
 /* Button */
 
 .btn {
     text-transform:uppercase;
     padding: .8em;
     font-weight: bold;
+    max-width: 300px;
+    text-decoration: none;
 }
 
 .btn-primary {
-    color: #fff;
-    font-size: 1em;
-    background: #0099cc;
-    border: 0;
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  color: #fff;
+  font-size: 1em;
+  border: 0;
+}
+
+.btn-primary:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
 }
 
 [contenteditable=true]:empty:before{
@@ -145,13 +176,15 @@ select {
     padding-bottom: 4em
 }
 
-.wrapper {
-    max-width: 764px;
-    min-width: 320px;
-    width: 100%;
-    margin: auto;
+.section-small {
+    padding-top: 1em;
+    padding-bottom: 1em
 }
 
+
+.section-white {
+    background: #F8F8F8;
+}
 .sidebar {
     width: 280px;
     background: #333;
@@ -161,21 +194,6 @@ select {
     right: 0;
 }
 
-.input-submit, .btn{
-    background: #2b7bb9;
-    cursor: pointer;
-    display: inline-block;
-    font-weight: bold;
-    margin-bottom: .8em;
-    padding: .6em 1.3em;
-    position: relative;
-    text-decoration: none;
-    padding: .8em;
-    border-radius: .3em;
-    color: #fff;
-    max-width: 300px;
-
-}
 
 /* Grid */
 
@@ -319,7 +337,11 @@ body .last {
 */
 
 body .bg-dark {
-    background: #222;
+    background: #777;
+}
+
+body .bg-dark a{
+    color: #fff;
 }
 
 body .tc {
@@ -367,12 +389,38 @@ body .nospace {
     margin: 0;
 }
 
+body .list-nostyle {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
 body .db {
     display: block;
+}
+
+body .tar {
+    text-align: right;
+}
+
+body .tal {
+    text-align: left;
 }
 
 body .centered {
     margin-left: auto;
     margin-right: auto;
     display: block;
+}
+
+body .center {
+    text-align: center;
+}
+
+body .extra-large {
+    font-size: 4em;
+}
+
+body .thin {
+    font-weight: 300;
 }

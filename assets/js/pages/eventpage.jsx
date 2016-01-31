@@ -1,6 +1,6 @@
 import makeRequest from '../utils/makeRequest.jsx'
 import Time from '../utils/Time.jsx'
-
+import Section from '../components/section.jsx'
 const EventPage = React.createClass({
     getInitialState(){
         return {
@@ -14,7 +14,8 @@ const EventPage = React.createClass({
                 id: "",
                 location: "",
                 owner: "",
-                updatedAt: ""
+                updatedAt: "",
+                aboutEvent: ""
             }
         }
     },
@@ -59,9 +60,12 @@ const EventPage = React.createClass({
         return (
             <section>
                 <h2>{this.state.event.eventName} <span className="fr"><Time iso={this.state.event.eventStart} /></span></h2>
+                <div className="tar">Ends at: <Time iso={this.state.event.eventStart} /></div>
                 <p className="small">Host: {this.state.event.eventHost} <br /><span>Type: {this.state.event.eventType}</span></p>
-                <h4>Location:</h4>
-                <address>{this.state.event.location}</address>
+                <p className="cb"><strong>Location</strong>: {this.state.event.location} (<a href={"https://www.google.com/maps?q=" + this.state.event.location} target="_blank">map</a>)</p>
+                <Section show={this.state.event.aboutEvent !== ''}>
+                    <p><strong>About Event</strong>: {this.state.event.aboutEvent} </p>
+                </Section>
             </section>
         )
     }

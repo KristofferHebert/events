@@ -18,9 +18,9 @@ var Wrapper = React.createClass({
         Auth.logoutUser()
         this.history.pushState(null, '/')
     },
-    isEditPage(){
+    isAddEventPage(){
         var hash = window.location.hash.split('/')
-        return (hash.length === 4 && hash[2] === 'idea')
+        return (hash.length === 4 && hash[2] === 'addevents')
     },
     goBack(){
         this.history.goBack()
@@ -28,7 +28,7 @@ var Wrapper = React.createClass({
     render: function(){
         var isLoggedIn = Auth.isLoggedIn()
         var Home = (isLoggedIn) ? '/u/' : '/'
-        var showBackButton = this.isEditPage()
+        var showBackButton = this.isAddEventPage()
 
         return (
             <div>
@@ -57,7 +57,6 @@ var Wrapper = React.createClass({
                 <aside className={this.state.showMenu && isLoggedIn ? 'sidebar' : 'sidebar hidden'}>
                     <nav>
                         <ul className="list-nostyle">
-                            <li><Link to="/u/settings" className="fa fa-cog menu-item-vertical">Settings</Link></li>
                           <li><a className="menu-item-vertical" onClick={this.handleLogout} >Logout</a></li>
                         </ul>
                     </nav>

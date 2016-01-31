@@ -121,11 +121,11 @@ const SignupForm = React.createClass({
                 <h3 className="center">Sign up for Events</h3>
             <Label for="email" text="Email*">
                 <Input {...this.state.email} onChange={this.handleChange}/>
-                <Message message={this.state.email.message}/>
+                <Message message={this.state.email.message} status={this.state.email.status} />
             </Label>
             <Label for="password" text="Password*">
                 <Input {...this.state.password} onChange={this.handleChange}/>
-                <Message message={this.state.password.message}/>
+                <Message message={this.state.password.message} status={this.state.password.status}/>
             </Label>
             <p className="center">Password must contain 8 characters at least 1 Alphabet, 1 Number and 1 Special Character</p>
             <Section show={this.state.email.isValid && this.state.password.isValid}>
@@ -134,10 +134,10 @@ const SignupForm = React.createClass({
                 </Label>
                 <Label for="Bio" text="Bio (optional)">
                 <Textarea {...this.state.bio} rows="4" cols="50" maxLength="400" onChange={this.handleChange}/>
-                <p className="fr small">400 characters max</p>
+                <p className="mt0 fr small">400 characters max</p>
                 </Label>
             <Section show={this.state.fullname.value !== ''}>
-                <Input type="submit" value="Sign up" className="btn btn-primary"/></Section>
+                <Input type="submit" value="Sign up" className="btn btn-primary centered"/></Section>
             </Section>
             <Message message={this.state.message.value} className={this.state.message.status}/>
             </Form>

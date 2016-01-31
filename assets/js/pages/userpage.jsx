@@ -21,7 +21,7 @@ const UserPage = React.createClass({
             .then(function(response){
                 if(response) {
                     self.setState({
-                        events : [response['0']]
+                        events : response
                     })
 
                 } else {

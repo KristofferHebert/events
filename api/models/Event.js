@@ -36,6 +36,10 @@ module.exports = {
           maxLength: 100,
           required: true
         },
+        aboutEvent: {
+            type: 'string',
+            maxLength: 400
+        },
         owner: {
           type: 'string'
         }

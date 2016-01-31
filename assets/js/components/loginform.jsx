@@ -27,6 +27,7 @@ const LoginForm = React.createClass({
                 password: {
                     name: 'password',
                     type: 'password',
+                    placeholder : 'Password',
                     value: ''
                 },
                 message: {
@@ -78,14 +79,14 @@ const LoginForm = React.createClass({
                 <h3 className="center">Login</h3>
                 <Label for="email" text="Email*">
                     <Input {...this.state.email} onChange={this.handleChange}/>
-                    <Message message={this.state.email.message}/>
+                    <Message message={this.state.email.message}  status={this.state.email.status}/>
                 </Label>
                 <Label for="password" text="Password*">
                     <Input {...this.state.password} onChange={this.handleChange}/>
-                    <Message message={this.state.password.message}/>
+                    <Message message={this.state.password.message} status={this.state.password.status}/>
                 </Label>
                 <Message message={this.state.message.value} className={this.state.message.status} />
-                <Input type="submit" value="Login" className="btn btn-primary"/>
+                <Input type="submit" value="Login" className="btn btn-primary centered"/>
             </Form>
         )
     }
