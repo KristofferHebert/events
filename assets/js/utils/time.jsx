@@ -11,9 +11,9 @@ const Time = React.createClass({
         startTime = startTime.toLocaleString()
 
         return (
-            <div>
+            <span>
                 {startTime}
-            </div>
+            </span>
 
         )
     }

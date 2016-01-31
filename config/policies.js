@@ -56,9 +56,11 @@ module.exports.policies = {
         '*': true
     },
     UserController: {
-        'create': true
+        'create': true,
+        'findOne': true
     },
     EventController: {
+        'findOne': true,
         'create': ['setOwner']
     }
 

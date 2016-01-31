@@ -13,7 +13,6 @@ import handleChange from '../mixins/handleChange.jsx'
 import validate from '../mixins/validate.jsx'
 import { History } from 'react-router'
 
-
 const AddEventsForm = React.createClass({
     mixins: [History],
     getInitialState(){

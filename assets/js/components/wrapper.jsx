@@ -27,7 +27,7 @@ var Wrapper = React.createClass({
     },
     render: function(){
         var isLoggedIn = Auth.isLoggedIn()
-        var Home = (isLoggedIn) ? '/u/' : '/'
+        var Home = (isLoggedIn) ? '/u' : '/'
         var showBackButton = this.isAddEventPage()
 
         return (

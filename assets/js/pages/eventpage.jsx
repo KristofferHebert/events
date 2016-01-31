@@ -1,6 +1,9 @@
 import makeRequest from '../utils/makeRequest.jsx'
 import Time from '../utils/Time.jsx'
 import Section from '../components/section.jsx'
+import ShareBar from '../components/sharebar.jsx'
+import AboutRegistrar from '../components/aboutregistrar.jsx'
+
 const EventPage = React.createClass({
     getInitialState(){
         return {
@@ -11,6 +14,7 @@ const EventPage = React.createClass({
                 eventName: "",
                 eventStart: "",
                 eventType: "",
+                owner: false,
                 id: "",
                 location: "",
                 owner: "",
@@ -57,15 +61,29 @@ const EventPage = React.createClass({
 
     },
     render(){
+
+        let location = window.location.href
+
         return (
-            <section>
-                <h2>{this.state.event.eventName} <span className="fr"><Time iso={this.state.event.eventStart} /></span></h2>
-                <div className="tar">Ends at: <Time iso={this.state.event.eventStart} /></div>
-                <p className="small">Host: {this.state.event.eventHost} <br /><span>Type: {this.state.event.eventType}</span></p>
-                <p className="cb"><strong>Location</strong>: {this.state.event.location} (<a href={"https://www.google.com/maps?q=" + this.state.event.location} target="_blank">map</a>)</p>
-                <Section show={this.state.event.aboutEvent !== ''}>
-                    <p><strong>About Event</strong>: {this.state.event.aboutEvent} </p>
-                </Section>
+            <section >
+                <section className="eventList padding mt">
+                    <h2 className="mt0 large">{this.state.event.eventName}</h2>
+                    <h3 className="bold"><Time iso={this.state.event.eventStart} /></h3>
+                    <div>Ends at: <Time iso={this.state.event.eventEnd} /></div>
+                    <p className="small">Host: {this.state.event.eventHost} <br /><span>Type: {this.state.event.eventType}</span></p>
+                    <p className="cb"><strong>Location</strong>: {this.state.event.location} (<a href={"https://www.google.com/maps?q=" + this.state.event.location} target="_blank">map</a>)</p>
+                    <Section show={this.state.event.aboutEvent !== '' && this.state.event.aboutEvent}>
+                        <h4 className="mb0">About Event</h4>
+                        <p>{this.state.event.aboutEvent} </p>
+                    </Section>
+                </section>
+                <section className="eventList padding mt">
+                    <Section show={this.state.event.owner !== '' && this.state.event.owner}>
+                        <h2 className="mt0">About Event Registrar</h2>
+                        <AboutRegistrar userId={this.state.event.owner} eventName={this.state.event.eventName}/>
+                    </Section>
+                </section>
+                <ShareBar title={this.state.eventName} url={location}/>
             </section>
         )
     }

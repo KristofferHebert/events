@@ -24,6 +24,10 @@ address {
     font-style: normal;
 }
 
+strong, .bold {
+    font-weight: bold;
+}
+
 input, select, .btn, .input-content, textarea {
     padding: .6em;
     margin: 0 0 1.2em;
@@ -157,6 +161,14 @@ label span{
   text-decoration: none;
 }
 
+.btn-small {
+    min-width: 200px;
+    font-size: .9em;
+    width: 2em;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 [contenteditable=true]:empty:before{
   content: attr(placeholder);
   display: block;
@@ -193,6 +205,21 @@ select {
     bottom: 0;
     right: 0;
 }
+/* Social Icons*/
+
+.share-bar-button-container {
+    width: 192px;
+}
+
+.share-bar-button {
+    float: left;
+    display: block;
+    width: 3em;
+    height: 3em;
+    text-align: center;
+    cursor: pointer;
+}
+
 
 
 /* Grid */
@@ -364,6 +391,10 @@ body .hidden {
     margin-right: -.4em;
 }
 
+body .mt {
+    margin-top: .8em;
+}
+
 body .mr {
     margin-right: .8em;
 }
@@ -415,6 +446,14 @@ body .centered {
 
 body .center {
     text-align: center;
+}
+
+body .padding {
+    padding: 1em;
+}
+
+body .large {
+    font-size: 2em;
 }
 
 body .extra-large {
