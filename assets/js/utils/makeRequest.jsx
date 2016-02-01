@@ -33,7 +33,11 @@ if (token) defaultOptions.headers.Authorization = 'Bearer: ' + token
 function makeRequest(endpoint, userOptions) {
     let options = Object.assign(defaultOptions, userOptions)
 
-	return fetch(endpoint, options)
+    if(options.method === 'get'|| options.method === 'GET'){
+        delete options.body
+    }
+
+    return fetch(endpoint, options)
 			.then(response => {
 			    return response.json().then(json => {
 			    	return response.ok ? json : Promise.reject(json)

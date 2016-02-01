@@ -2040,6 +2040,10 @@ if (token) defaultOptions.headers.Authorization = 'Bearer: ' + token;
 function makeRequest(endpoint, userOptions) {
 	var options = Object.assign(defaultOptions, userOptions);
 
+	if (options.method === 'get' || options.method === 'GET') {
+		delete options.body;
+	}
+
 	return fetch(endpoint, options).then(function (response) {
 		return response.json().then(function (json) {
 			return response.ok ? json : Promise.reject(json);
