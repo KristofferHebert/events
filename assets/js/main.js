@@ -245,7 +245,6 @@ var AddEventsForm = React.createClass({
         };
 
         (0, _makeRequest2.default)('/api/v1/event', settings).then(function (response) {
-
             if (response.code === "CREATED") {
                 self.setState({
                     message: {
@@ -254,7 +253,7 @@ var AddEventsForm = React.createClass({
                     }
                 });
 
-                self.history.pushState('/u', null);
+                self.history.pushState(null, '/u/event/' + response.data.id);
             } else {
                 self.setState({
                     message: {
@@ -383,6 +382,8 @@ var _time = require('../../utils/time.jsx');
 
 var _time2 = _interopRequireDefault(_time);
 
+var _reactRouter = require('react-router');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var EventList = React.createClass({
@@ -431,16 +432,25 @@ var EventList = React.createClass({
         });
 
         return React.createElement(
-            'ul',
-            { className: 'list-nostyle eventList' },
-            events
+            'section',
+            null,
+            React.createElement(
+                _reactRouter.Link,
+                { className: events.length === 0 ? 'btn btn-primary centered' : 'hidden', to: '/u/addevents' },
+                'Add New Event'
+            ),
+            React.createElement(
+                'ul',
+                { className: 'list-nostyle eventList' },
+                events
+            )
         );
     }
 });
 
 exports.default = EventList;
 
-},{"../../utils/time.jsx":28}],4:[function(require,module,exports){
+},{"../../utils/time.jsx":28,"react-router":78}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1234,7 +1244,7 @@ var Wrapper = React.createClass({
         var showBackButton = this.isAddEventPage();
 
         return React.createElement(
-            'div',
+            'section',
             null,
             React.createElement(
                 'div',
@@ -1297,6 +1307,11 @@ var Wrapper = React.createClass({
                     )
                 ),
                 React.createElement(
+                    'h1',
+                    { className: !isLoggedIn ? 'extra-large thin center mb0 mt' : 'hidden' },
+                    'Events'
+                ),
+                React.createElement(
                     'main',
                     { className: 'wrapper container' },
                     this.props.children
@@ -1323,8 +1338,13 @@ var Wrapper = React.createClass({
                     null,
                     React.createElement(
                         'h3',
-                        null,
-                        'Menu'
+                        { className: 'thin ml text-white', onClick: this.toggleMenu },
+                        'Menu ',
+                        React.createElement(
+                            'span',
+                            { className: 'fr mr' },
+                            'X'
+                        )
                     ),
                     React.createElement(
                         'ul',
@@ -1526,6 +1546,7 @@ var EventPage = React.createClass({
                 eventType: "",
                 owner: false,
                 id: "",
+                guest: "",
                 location: "",
                 owner: "",
                 updatedAt: "",
@@ -1602,7 +1623,10 @@ var EventPage = React.createClass({
                         'span',
                         null,
                         'Type: ',
-                        this.state.event.eventType
+                        this.state.event.eventType,
+                        React.createElement('br', null),
+                        'Guest(s): ',
+                        this.state.event.guest
                     )
                 ),
                 React.createElement(
@@ -1614,14 +1638,12 @@ var EventPage = React.createClass({
                         'Location'
                     ),
                     ': ',
-                    this.state.event.location,
-                    ' (',
-                    React.createElement(
-                        'a',
-                        { href: "https://www.google.com/maps?q=" + this.state.event.location, target: '_blank' },
-                        'map'
-                    ),
-                    ')'
+                    this.state.event.location
+                ),
+                React.createElement(
+                    'a',
+                    { href: "https://www.google.com/maps?q=" + this.state.event.location, className: 'btn btn-primary btn-small', target: '_blank' },
+                    'Get Directions'
                 ),
                 React.createElement(
                     _section2.default,
@@ -1691,11 +1713,6 @@ var HomePage = React.createClass({
             React.createElement(
                 'section',
                 { className: 'section tc' },
-                React.createElement(
-                    'h1',
-                    { className: 'extra-large thin' },
-                    'Events'
-                ),
                 React.createElement(
                     'h2',
                     null,
@@ -1804,12 +1821,20 @@ var _EventList = require('../components/events/EventList.jsx');
 
 var _EventList2 = _interopRequireDefault(_EventList);
 
+var _message = require('../components/inputFields/message.jsx');
+
+var _message2 = _interopRequireDefault(_message);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var UserPage = React.createClass({
     getInitialState: function getInitialState() {
         return {
-            events: []
+            events: [],
+            message: {
+                value: '',
+                status: ''
+            }
         };
     },
     componentDidMount: function componentDidMount() {
@@ -1827,6 +1852,7 @@ var UserPage = React.createClass({
                     events: response
                 });
             } else {
+                console.log(response);
                 self.setState({
                     message: {
                         value: 'Something went wrong.',
@@ -1853,14 +1879,15 @@ var UserPage = React.createClass({
                 null,
                 'My Events'
             ),
-            React.createElement(_EventList2.default, { events: this.state.events })
+            React.createElement(_EventList2.default, { events: this.state.events }),
+            React.createElement(_message2.default, { message: this.state.message.value, className: this.state.message.status })
         );
     }
 });
 
 exports.default = UserPage;
 
-},{"../components/events/EventList.jsx":3,"../utils/auth.jsx":26,"../utils/makeRequest.jsx":27}],25:[function(require,module,exports){
+},{"../components/events/EventList.jsx":3,"../components/inputFields/message.jsx":9,"../utils/auth.jsx":26,"../utils/makeRequest.jsx":27}],25:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

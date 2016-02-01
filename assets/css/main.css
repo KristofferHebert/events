@@ -289,6 +289,7 @@ body .last {
 
 .addSpacingForMenu {
     padding-right: 280px;
+    margin-left: -280px;
 }
 
 .input-content {
@@ -409,6 +410,14 @@ body .ml {
 
 body .mb {
     margin-bottom: .8em;
+}
+
+body .small {
+    font-size: .9em;
+}
+
+body .text-white {
+    color: #fff;
 }
 
 body .mt0 {

@@ -1,11 +1,16 @@
 import Auth from '../utils/auth.jsx'
 import makeRequest from '../utils/makeRequest.jsx'
 import EventList from '../components/events/EventList.jsx'
+import Message from '../components/inputFields/message.jsx'
 
 const UserPage = React.createClass({
     getInitialState(){
         return {
-            events: []
+            events: [],
+            message: {
+                value: '',
+                status: ''
+            }
         }
     },
     componentDidMount(){
@@ -25,6 +30,7 @@ const UserPage = React.createClass({
                     })
 
                 } else {
+                    console.log(response)
                     self.setState({
                         message : {
                             value: 'Something went wrong.',
@@ -50,6 +56,7 @@ const UserPage = React.createClass({
             <section>
                 <h3>My Events</h3>
                 <EventList events={this.state.events} />
+                <Message message={this.state.message.value} className={this.state.message.status}/>
             </section>
         )
     }

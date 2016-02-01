@@ -36,6 +36,10 @@ module.exports = {
           maxLength: 100,
           required: true
         },
+        guest: {
+          type: 'string',
+          maxLength: 100,
+        },
         aboutEvent: {
             type: 'string',
             maxLength: 400

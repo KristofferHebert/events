@@ -15,7 +15,6 @@ const HomePage = React.createClass({
         return (
             <div>
                 <section className="section tc">
-                    <h1 className="extra-large thin">Events</h1>
                     <h2>Events helps you create and share events with your friends.</h2>
                     <p><Link to={'/signup'} className="btn btn-primary centered">Sign Up – It’s Free.</Link></p>
                 </section>

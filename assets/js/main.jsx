@@ -13,7 +13,7 @@ import EventPage from './pages/eventpage.jsx'
 
 var Routes = (
     <Route path="/" component={Wrapper}>
-      <IndexRoute component={HomePage} />
+        <IndexRoute component={HomePage} />
         <Route path="signup" component={SignUpPage} />
         <Route path="login" component={LoginPage} />
         <Route path="u" component={UserPage} />

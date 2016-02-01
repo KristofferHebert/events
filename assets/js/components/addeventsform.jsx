@@ -114,7 +114,6 @@ const AddEventsForm = React.createClass({
 
         makeRequest('/api/v1/event', settings)
             .then(function(response){
-
                 if(response.code === "CREATED") {
                     self.setState({
                         message : {
@@ -123,7 +122,7 @@ const AddEventsForm = React.createClass({
                         }
                     })
 
-                    self.history.pushState('/u', null)
+                    self.history.pushState(null, '/u/event/' + response.data.id)
 
                 } else {
                     self.setState({

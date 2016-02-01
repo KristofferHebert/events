@@ -16,6 +16,7 @@ const EventPage = React.createClass({
                 eventType: "",
                 owner: false,
                 id: "",
+                guest: "",
                 location: "",
                 owner: "",
                 updatedAt: "",
@@ -70,8 +71,9 @@ const EventPage = React.createClass({
                     <h2 className="mt0 large">{this.state.event.eventName}</h2>
                     <h3 className="bold"><Time iso={this.state.event.eventStart} /></h3>
                     <div>Ends at: <Time iso={this.state.event.eventEnd} /></div>
-                    <p className="small">Host: {this.state.event.eventHost} <br /><span>Type: {this.state.event.eventType}</span></p>
-                    <p className="cb"><strong>Location</strong>: {this.state.event.location} (<a href={"https://www.google.com/maps?q=" + this.state.event.location} target="_blank">map</a>)</p>
+                    <p className="small">Host: {this.state.event.eventHost} <br /><span>Type: {this.state.event.eventType}<br />Guest(s): {this.state.event.guest}</span></p>
+                    <p className="cb"><strong>Location</strong>: {this.state.event.location}</p>
+                    <a href={"https://www.google.com/maps?q=" + this.state.event.location} className="btn btn-primary btn-small" target="_blank">Get Directions</a>
                     <Section show={this.state.event.aboutEvent !== '' && this.state.event.aboutEvent}>
                         <h4 className="mb0">About Event</h4>
                         <p>{this.state.event.aboutEvent} </p>

@@ -1,4 +1,5 @@
 import Time from '../../utils/time.jsx'
+import {Link} from 'react-router'
 
 const EventList = React.createClass({
     getDefaultProps(){
@@ -21,9 +22,12 @@ const EventList = React.createClass({
         })
 
         return (
-            <ul className="list-nostyle eventList">
-                {events}
-            </ul>
+            <section>
+                <Link className={ (events.length === 0) ? 'btn btn-primary centered' : 'hidden'} to="/u/addevents">Add New Event</Link>
+                <ul className="list-nostyle eventList">
+                    {events}
+                </ul>
+            </section>
         )
     }
 })
