@@ -39,7 +39,7 @@
         "sendgrid": "^2.0.0"
     },
     "scripts": {
-        "prod": "pm2 start app.js --name staystream.com -x -- --prod",
+        "prod": "pm2 start app.js --name events.hirekris.com -x -- --prod",
         "dev": "pm2-dev app.js",
         "compile": "watchify -t babelify assets/js/main.jsx -o assets/js/main.js --poll",
         "debug": "node debug app.js",
