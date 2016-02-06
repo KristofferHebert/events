@@ -1,3 +1,5 @@
 # Events
 
-Helps you create and share events. Built with React.js and Sails.js.
+Events helps you create and share events. Built with React.js and Sails.js.
+
+[Live demo:](https://events.hirekris.com)
