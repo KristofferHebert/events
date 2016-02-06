@@ -1,4 +1,4 @@
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcryptjs')
 var jwt = require('jsonwebtoken')
 var salt = bcrypt.genSaltSync(10)
 
