@@ -7,10 +7,14 @@ Events helps you create and share events. Built with React.js and Sails.js.
 ## Commands
 
 Launch Dev server that autorestarts. On Port 1667
-    npm run dev
-
+```
+npm run dev
+```
 Auto compile changes to jsx files with babel
-    npm run compile
-
+```
+npm run compile
+```
 Launch app in production using pm2 as event.hirekris.com. On Port 1667
-    npm run prod
+```
+npm run prod
+```
