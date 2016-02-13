@@ -60,6 +60,7 @@ module.exports.policies = {
         'findOne': true
     },
     EventController: {
+        'find': true,
         'findOne': true,
         'create': ['setOwner']
     }
