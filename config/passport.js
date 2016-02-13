@@ -39,7 +39,7 @@ function handleLocalStrategy(email, password, next) {
 				message: email + ' is not found'
 			})
 
-			console.log(EncryptionService.comparePassword(password, user.password), password, user.password)
+			console.log('Logging in', EncryptionService.comparePassword(password, user.password), password, user.password)
 
 			if (!EncryptionService.comparePassword(password, user.password))
 				return next(null, false, {
