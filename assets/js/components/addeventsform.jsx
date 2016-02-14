@@ -210,7 +210,7 @@ const AddEventsForm = React.createClass({
                     </Label>
                 </div>
                 <div className="half">
-                    <Label for="guest" text="Guest List">
+                    <Label for="guest" text="Guest List*">
                         <Input {...this.state.guest} id="guest" onChange={this.handleChange}/>
                     </Label>
                 </div>

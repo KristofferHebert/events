@@ -363,7 +363,7 @@ var AddEventsForm = React.createClass({
                 { className: 'half' },
                 React.createElement(
                     _label2.default,
-                    { 'for': 'guest', text: 'Guest List' },
+                    { 'for': 'guest', text: 'Guest List*' },
                     React.createElement(_input2.default, _extends({}, this.state.guest, { id: 'guest', onChange: this.handleChange }))
                 )
             ),
