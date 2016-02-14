@@ -121,20 +121,20 @@ const SignupForm = React.createClass({
             <Form formNoValidate={true} onSubmit={this.handleSubmit}>
                 <h3 className="center">Sign up for Events</h3>
             <Label for="email" text="Email*">
-                <Input {...this.state.email} onChange={this.handleChange}/>
+                <Input {...this.state.email} id="email" onChange={this.handleChange}/>
                 <Message message={this.state.email.message} status={this.state.email.status} />
             </Label>
             <Label for="password" text="Password*">
-                <Input {...this.state.password} onChange={this.handleChange}/>
+                <Input {...this.state.password} id="password" onChange={this.handleChange}/>
                 <Message message={this.state.password.message} status={this.state.password.status}/>
             </Label>
             <p className="center">Password must contain 8 characters at least 1 Alphabet, 1 Number and 1 Special Character</p>
             <Section show={this.state.email.isValid && this.state.password.isValid}>
                 <Label for="fullname" text="Name*">
-                <Input {...this.state.fullname} onChange={this.handleChange}/>
+                <Input {...this.state.fullname} id="fullname" onChange={this.handleChange}/>
                 </Label>
                 <Label for="Bio" text="Bio (optional)">
-                <Textarea {...this.state.bio} rows="4" cols="50" maxLength="400" onChange={this.handleChange}/>
+                <Textarea {...this.state.bio} id="bio" rows="4" cols="50" maxLength="400" onChange={this.handleChange}/>
                 <p className="mt0 fr small">400 characters max</p>
                 </Label>
             <Section show={this.state.fullname.value !== ''}>

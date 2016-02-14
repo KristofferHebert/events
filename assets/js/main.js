@@ -901,13 +901,13 @@ var LoginForm = React.createClass({
             React.createElement(
                 _label2.default,
                 { 'for': 'email', text: 'Email*' },
-                React.createElement(_input2.default, _extends({}, this.state.email, { onChange: this.handleChange })),
+                React.createElement(_input2.default, _extends({}, this.state.email, { id: 'email', onChange: this.handleChange })),
                 React.createElement(_message2.default, { message: this.state.email.message, status: this.state.email.status })
             ),
             React.createElement(
                 _label2.default,
                 { 'for': 'password', text: 'Password*' },
-                React.createElement(_input2.default, _extends({}, this.state.password, { onChange: this.handleChange })),
+                React.createElement(_input2.default, _extends({}, this.state.password, { id: 'password', onChange: this.handleChange })),
                 React.createElement(_message2.default, { message: this.state.password.message, status: this.state.password.status })
             ),
             React.createElement(_message2.default, { message: this.state.message.value, className: this.state.message.status }),
@@ -1190,13 +1190,13 @@ var SignupForm = React.createClass({
             React.createElement(
                 _label2.default,
                 { 'for': 'email', text: 'Email*' },
-                React.createElement(_input2.default, _extends({}, this.state.email, { onChange: this.handleChange })),
+                React.createElement(_input2.default, _extends({}, this.state.email, { id: 'email', onChange: this.handleChange })),
                 React.createElement(_message2.default, { message: this.state.email.message, status: this.state.email.status })
             ),
             React.createElement(
                 _label2.default,
                 { 'for': 'password', text: 'Password*' },
-                React.createElement(_input2.default, _extends({}, this.state.password, { onChange: this.handleChange })),
+                React.createElement(_input2.default, _extends({}, this.state.password, { id: 'password', onChange: this.handleChange })),
                 React.createElement(_message2.default, { message: this.state.password.message, status: this.state.password.status })
             ),
             React.createElement(
@@ -1210,12 +1210,12 @@ var SignupForm = React.createClass({
                 React.createElement(
                     _label2.default,
                     { 'for': 'fullname', text: 'Name*' },
-                    React.createElement(_input2.default, _extends({}, this.state.fullname, { onChange: this.handleChange }))
+                    React.createElement(_input2.default, _extends({}, this.state.fullname, { id: 'fullname', onChange: this.handleChange }))
                 ),
                 React.createElement(
                     _label2.default,
                     { 'for': 'Bio', text: 'Bio (optional)' },
-                    React.createElement(_textarea2.default, _extends({}, this.state.bio, { rows: '4', cols: '50', maxLength: '400', onChange: this.handleChange })),
+                    React.createElement(_textarea2.default, _extends({}, this.state.bio, { id: 'bio', rows: '4', cols: '50', maxLength: '400', onChange: this.handleChange })),
                     React.createElement(
                         'p',
                         { className: 'mt0 fr small' },

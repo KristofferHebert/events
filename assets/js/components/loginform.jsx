@@ -79,11 +79,11 @@ const LoginForm = React.createClass({
             <Form formNoValidate={true} onSubmit={this.handleSubmit}>
                 <h3 className="center">Login</h3>
                 <Label for="email" text="Email*">
-                    <Input {...this.state.email} onChange={this.handleChange}/>
+                    <Input {...this.state.email} id="email" onChange={this.handleChange}/>
                     <Message message={this.state.email.message}  status={this.state.email.status}/>
                 </Label>
                 <Label for="password" text="Password*">
-                    <Input {...this.state.password} onChange={this.handleChange}/>
+                    <Input {...this.state.password}  id="password" onChange={this.handleChange}/>
                     <Message message={this.state.password.message} status={this.state.password.status}/>
                 </Label>
                 <Message message={this.state.message.value} className={this.state.message.status} />
