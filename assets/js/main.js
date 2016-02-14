@@ -201,7 +201,11 @@ var AddEventsForm = React.createClass({
                 name: 'eventEnd',
                 type: 'datetime-local',
                 value: '',
-                required: true
+                required: true,
+                message: {
+                    value: "",
+                    status: ""
+                }
             },
             aboutEvent: {
                 name: 'aboutEvent',
@@ -226,53 +230,80 @@ var AddEventsForm = React.createClass({
             }
         });
     },
+    hasValidDates: function hasValidDates() {
+        var startDateTime = new Date(this.state.eventStart.value);
+        var endDateTime = new Date(this.state.eventEnd.value);
+        var endDate = this.state.eventEnd;
+
+        if (startDateTime > endDateTime) {
+
+            endDate.message.value = 'End date must be after start date';
+            endDate.message.status = 'invalid';
+            endDate.className = 'invalid';
+
+            this.setState({
+                endDate: endDate
+            });
+
+            return false;
+        } else {
+            endDate.message.value = '';
+            endDate.message.status = '';
+            endDate.className = '';
+        }
+
+        return true;
+    },
     handleSubmit: function handleSubmit(event) {
         event.preventDefault();
         var self = this;
 
-        var newEvent = {
-            eventName: this.state.eventName.value,
-            location: this.state.location.value,
-            eventType: this.state.eventType.value,
-            aboutEvent: this.state.aboutEvent.value,
-            eventHost: this.state.eventHost.value,
-            guest: this.state.guest.value,
-            eventStart: new Date(this.state.eventStart.value).toISOString(),
-            eventEnd: new Date(this.state.eventEnd.value).toISOString()
-        };
+        if (this.hasValidDates()) {
 
-        var settings = {
-            method: 'POST',
-            body: JSON.stringify(newEvent)
-        };
+            var newEvent = {
+                eventName: this.state.eventName.value,
+                location: this.state.location.value,
+                eventType: this.state.eventType.value,
+                aboutEvent: this.state.aboutEvent.value,
+                eventHost: this.state.eventHost.value,
+                guest: this.state.guest.value,
+                eventStart: new Date(this.state.eventStart.value).toISOString(),
+                eventEnd: new Date(this.state.eventEnd.value).toISOString()
+            };
 
-        (0, _makeRequest2.default)('/api/v1/event', settings).then(function (response) {
-            if (response.code === "CREATED") {
-                self.setState({
-                    message: {
-                        value: 'Successfully created event.',
-                        status: 'valid'
-                    }
-                });
+            var settings = {
+                method: 'POST',
+                body: JSON.stringify(newEvent)
+            };
 
-                self.history.pushState(null, '/u/event/' + response.data.id);
-            } else {
+            (0, _makeRequest2.default)('/api/v1/event', settings).then(function (response) {
+                if (response.code === "CREATED") {
+                    self.setState({
+                        message: {
+                            value: 'Successfully created event.',
+                            status: 'valid'
+                        }
+                    });
+
+                    self.history.pushState(null, '/u/event/' + response.data.id);
+                } else {
+                    self.setState({
+                        message: {
+                            value: 'Something went wrong.',
+                            status: 'invalid'
+                        }
+                    });
+                }
+            }).catch(function (error) {
+                console.log(error);
                 self.setState({
                     message: {
                         value: 'Something went wrong.',
                         status: 'invalid'
                     }
                 });
-            }
-        }).catch(function (error) {
-            console.log(error);
-            self.setState({
-                message: {
-                    value: 'Something went wrong.',
-                    status: 'invalid'
-                }
             });
-        });
+        }
     },
     render: function render() {
 
@@ -323,7 +354,8 @@ var AddEventsForm = React.createClass({
                 React.createElement(
                     _label2.default,
                     { 'for': 'eventEnd', text: 'Event Ends*' },
-                    React.createElement(_input2.default, _extends({}, this.state.eventEnd, { id: 'eventEnd', onChange: this.handleChange }))
+                    React.createElement(_input2.default, _extends({}, this.state.eventEnd, { id: 'eventEnd', onChange: this.handleChange })),
+                    React.createElement(_message2.default, { message: this.state.eventEnd.message.value, status: this.state.eventEnd.message.status })
                 )
             ),
             React.createElement(

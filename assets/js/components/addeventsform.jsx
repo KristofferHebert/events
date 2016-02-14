@@ -65,7 +65,11 @@ const AddEventsForm = React.createClass({
               name: 'eventEnd',
               type: 'datetime-local',
               value: '',
-              required: true
+              required: true,
+              message: {
+                  value: "",
+                  status: ""
+              }
             },
             aboutEvent: {
                 name: 'aboutEvent',
@@ -94,9 +98,36 @@ const AddEventsForm = React.createClass({
             }
         })
     },
+    hasValidDates(){
+        var startDateTime = new Date(this.state.eventStart.value)
+        var endDateTime = new Date(this.state.eventEnd.value)
+        var endDate = this.state.eventEnd
+
+        if(startDateTime > endDateTime) {
+
+            endDate.message.value = 'End date must be after start date'
+            endDate.message.status = 'invalid'
+            endDate.className = 'invalid'
+
+            this.setState({
+                endDate
+            })
+
+            return false
+
+        } else {
+            endDate.message.value = ''
+            endDate.message.status = ''
+            endDate.className = ''
+        }
+
+        return true
+    },
     handleSubmit(event){
         event.preventDefault()
         let self = this
+
+        if(this.hasValidDates()) {
 
         let newEvent = {
             eventName: this.state.eventName.value,
@@ -145,7 +176,7 @@ const AddEventsForm = React.createClass({
                     }
                 })
             })
-
+        }
 
     },
     render(){
@@ -175,6 +206,7 @@ const AddEventsForm = React.createClass({
                 <div className="half last">
                     <Label for="eventEnd" text="Event Ends*">
                         <Input {...this.state.eventEnd} id="eventEnd" onChange={this.handleChange}/>
+                        <Message message={this.state.eventEnd.message.value} status={this.state.eventEnd.message.status}/>
                     </Label>
                 </div>
                 <div className="half">
