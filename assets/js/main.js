@@ -1467,7 +1467,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 function validate(obj, regex, type) {
-    if (!obj.value.match(regex)) {
+    if (!obj.value.match(regex) || obj.value === '') {
         obj.message = 'Invalid ' + type;
         obj.status = 'invalid';
         obj.isValid = false;
