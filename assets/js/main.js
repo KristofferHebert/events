@@ -158,7 +158,8 @@ var AddEventsForm = React.createClass({
                 type: 'text',
                 value: '',
                 placeholder: 'Beth\'s 30th Birthday',
-                required: true
+                required: true,
+                autoFocus: true
             },
             location: {
                 name: 'location',
@@ -180,7 +181,8 @@ var AddEventsForm = React.createClass({
                 name: 'guest',
                 type: 'text',
                 value: '',
-                placeholder: 'Guest List'
+                placeholder: 'Guest List',
+                required: true
             },
             eventHost: {
                 name: 'eventHost',
@@ -285,7 +287,7 @@ var AddEventsForm = React.createClass({
             React.createElement(
                 _label2.default,
                 { 'for': 'eventName', text: 'Event Name*' },
-                React.createElement(_input2.default, _extends({}, this.state.eventName, { onChange: this.handleChange }))
+                React.createElement(_input2.default, _extends({}, this.state.eventName, { id: 'eventName', onChange: this.handleChange }))
             ),
             React.createElement(
                 'div',
@@ -293,7 +295,7 @@ var AddEventsForm = React.createClass({
                 React.createElement(
                     _label2.default,
                     { 'for': 'eventHost', text: 'Event Host*' },
-                    React.createElement(_input2.default, _extends({}, this.state.eventHost, { onChange: this.handleChange }))
+                    React.createElement(_input2.default, _extends({}, this.state.eventHost, { id: 'eventHost', onChange: this.handleChange }))
                 )
             ),
             React.createElement(
@@ -302,7 +304,7 @@ var AddEventsForm = React.createClass({
                 React.createElement(
                     _label2.default,
                     { 'for': 'eventType', text: 'Event Type*' },
-                    React.createElement(_input2.default, _extends({}, this.state.eventType, { list: 'eventType-list', onChange: this.handleChange })),
+                    React.createElement(_input2.default, _extends({}, this.state.eventType, { id: 'eventType', list: 'eventType-list', onChange: this.handleChange })),
                     React.createElement(_datalist2.default, { id: 'eventType-list', options: this.state.eventType.options, onChange: this.handleChange })
                 )
             ),
@@ -312,7 +314,7 @@ var AddEventsForm = React.createClass({
                 React.createElement(
                     _label2.default,
                     { 'for': 'eventStart', text: 'Event Starts*' },
-                    React.createElement(_input2.default, _extends({}, this.state.eventStart, { onChange: this.handleChange }))
+                    React.createElement(_input2.default, _extends({}, this.state.eventStart, { id: 'eventStart', onChange: this.handleChange }))
                 )
             ),
             React.createElement(
@@ -321,7 +323,7 @@ var AddEventsForm = React.createClass({
                 React.createElement(
                     _label2.default,
                     { 'for': 'eventEnd', text: 'Event Ends*' },
-                    React.createElement(_input2.default, _extends({}, this.state.eventEnd, { onChange: this.handleChange }))
+                    React.createElement(_input2.default, _extends({}, this.state.eventEnd, { id: 'eventEnd', onChange: this.handleChange }))
                 )
             ),
             React.createElement(
@@ -330,7 +332,7 @@ var AddEventsForm = React.createClass({
                 React.createElement(
                     _label2.default,
                     { 'for': 'guest', text: 'Guest List' },
-                    React.createElement(_input2.default, _extends({}, this.state.guest, { onChange: this.handleChange }))
+                    React.createElement(_input2.default, _extends({}, this.state.guest, { id: 'guest', onChange: this.handleChange }))
                 )
             ),
             React.createElement(
@@ -345,6 +347,7 @@ var AddEventsForm = React.createClass({
                     _label2.default,
                     { 'for': 'location', text: 'Location*' },
                     React.createElement(_geolocate2.default, {
+                        id: 'location',
                         placeholder: 'Start typing!',
                         initialValue: 'Seattle, WA',
                         fixtures: this.state.fixtures,
@@ -356,7 +359,7 @@ var AddEventsForm = React.createClass({
             React.createElement(
                 _label2.default,
                 { 'for': 'aboutEvent', text: 'About Event (optional)', className: 'cf' },
-                React.createElement(_textarea2.default, _extends({}, this.state.aboutEvent, { className: 'mb', rows: '6', cols: '50', maxLength: '400', onChange: this.handleChange })),
+                React.createElement(_textarea2.default, _extends({}, this.state.aboutEvent, { id: 'aboutEvent', className: 'mb', rows: '6', cols: '50', maxLength: '400', onChange: this.handleChange })),
                 React.createElement(
                     'p',
                     { className: 'fr mt0' },

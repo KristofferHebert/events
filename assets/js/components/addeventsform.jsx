@@ -22,7 +22,8 @@ const AddEventsForm = React.createClass({
               type: 'text',
               value: '',
               placeholder : 'Beth\'s 30th Birthday',
-              required: true
+              required: true,
+              autoFocus: true
             },
             location: {
               name: 'location',
@@ -44,7 +45,8 @@ const AddEventsForm = React.createClass({
               name: 'guest',
               type: 'text',
               value: '',
-              placeholder : 'Guest List'
+              placeholder : 'Guest List',
+              required: true
             },
             eventHost: {
               name: 'eventHost',
@@ -152,38 +154,39 @@ const AddEventsForm = React.createClass({
             <Form formNoValidate={true} onSubmit={this.handleSubmit}>
                 <h3 className="center">Register Event</h3>
                 <Label for="eventName" text="Event Name*">
-                    <Input {...this.state.eventName} onChange={this.handleChange}/>
+                    <Input {...this.state.eventName} id="eventName" onChange={this.handleChange} />
                 </Label>
                 <div className="half">
                     <Label for="eventHost" text="Event Host*">
-                        <Input {...this.state.eventHost} onChange={this.handleChange}/>
+                        <Input {...this.state.eventHost} id="eventHost" onChange={this.handleChange}/>
                     </Label>
                 </div>
                 <div className="half last">
                     <Label for="eventType" text="Event Type*">
-                        <Input {...this.state.eventType} list="eventType-list" onChange={this.handleChange}/>
+                        <Input {...this.state.eventType} id="eventType" list="eventType-list" onChange={this.handleChange}/>
                         <Datalist id="eventType-list"  options={this.state.eventType.options} onChange={this.handleChange} />
                     </Label>
                 </div>
                 <div className="half">
                     <Label for="eventStart" text="Event Starts*">
-                        <Input {...this.state.eventStart} onChange={this.handleChange}/>
+                        <Input {...this.state.eventStart} id="eventStart" onChange={this.handleChange}/>
                     </Label>
                 </div>
                 <div className="half last">
                     <Label for="eventEnd" text="Event Ends*">
-                        <Input {...this.state.eventEnd} onChange={this.handleChange}/>
+                        <Input {...this.state.eventEnd} id="eventEnd" onChange={this.handleChange}/>
                     </Label>
                 </div>
                 <div className="half">
                     <Label for="guest" text="Guest List">
-                        <Input {...this.state.guest} onChange={this.handleChange}/>
+                        <Input {...this.state.guest} id="guest" onChange={this.handleChange}/>
                     </Label>
                 </div>
                 <div className="half last">&nbsp;</div>
                 <div className="cf">
                     <Label for="location" text="Location*">
                         <Geosuggest
+                        id="location"
                         placeholder="Start typing!"
                         initialValue="Seattle, WA"
                         fixtures={this.state.fixtures}
@@ -193,7 +196,7 @@ const AddEventsForm = React.createClass({
                     </Label>
                 </div>
                 <Label for="aboutEvent" text="About Event (optional)" className="cf">
-                    <Textarea {...this.state.aboutEvent} className="mb" rows="6" cols="50" maxLength="400" onChange={this.handleChange}/>
+                    <Textarea {...this.state.aboutEvent} id="aboutEvent" className="mb" rows="6" cols="50" maxLength="400" onChange={this.handleChange}/>
                     <p className="fr mt0">Max chars 400</p>
                 </Label>
                 <Message message={this.state.message.value} status={this.state.message.status}/>
